@@ -1,8 +1,27 @@
 'use strict';
 
+var wsUri = "ws://localhost:9000/room/chat/aaa"; 
+var websocket = new WebSocket(wsUri); 
+
 angular.module('concordchurchApp')
 .controller('SwipeCtrl', function($scope, $http, $state, SwipeService) {
 
+	var output = document.getElementById("output");  
+	websocket.onopen = function(evt) { 
+		onOpen(evt) 
+	}
+  
+	websocket.onclose = function(evt) {
+		debugger;
+		onClose(evt) 
+	}; 
+	websocket.onmessage = function(evt) { 
+		onMessage(evt) 
+	}; 
+	websocket.onerror = function(evt) { 
+		onError(evt) 
+	}; 
+	
   var prefix = "/api/bunch/v2/me/";
 	
 	var currentRow = 1;
@@ -22,10 +41,12 @@ angular.module('concordchurchApp')
 		$scope.retrieve(id);
 	}
 
-  $scope.change = function(id) {
-	  
-  }
-  
+  $scope.send = function() {
+	debugger;
+	var chat = document.getElementById("chat");
+	websocket.send(chat.value);
+  }  
+	
   $scope.retrieve = function(id) {
 		if(!id) {
 			id = currentRow;
@@ -131,3 +152,28 @@ var gfRefresh = function(prefix) {
 		}
 	}
 }
+
+function onOpen(evt) { 
+	writeToScreen("CONNECTED"); 
+	doSend("WebSocket rocks"); 
+}  
+function onClose(evt) { 
+	writeToScreen("DISCONNECTED"); 
+}  
+function onMessage(evt) { 
+	writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>'); 
+	websocket.close(); 
+}  
+function onError(evt) { 
+	writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data); 
+}  
+function doSend(message) { 
+	writeToScreen("SENT: " + message);  
+	websocket.send(message); 
+}  
+function writeToScreen(message) { 
+	var pre = document.createElement("p"); 
+	pre.style.wordWrap = "break-word"; 
+	pre.innerHTML = message; output.appendChild(pre); 
+} 
+

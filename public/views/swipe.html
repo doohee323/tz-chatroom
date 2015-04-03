@@ -1,4 +1,5 @@
 
+	
 <div ng-controller="SwipeCtrl"> <!--  data-ng-init="retrieve( 1 )" -->
 
 	<div style="position: absolute;left: 0px;width:35px;height:64px;cursor: pointer;">
@@ -38,7 +39,12 @@
   
 </div>
 <div>
-  <input id='chat' type='text' ng-click="change()" style='width: 95%;margin-left: 15px;'/>
+	<h2>WebSocket Test</h2>
+  <input id='chat' type='text' style='width: 90%;margin-left: 15px;'/>
+	<a ng-click="send()" title="" style="cursor: pointer;">
+		Send
+	</a>
+	<div id="output"></div>
 </div>
 
 <script type="text/javascript">
@@ -50,7 +56,6 @@
 	});
 	
 </script>
-
 
 
 

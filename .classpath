@@ -135,6 +135,8 @@
   <classpathentry path="/data3/play-2.2.0/framework/../repository/cache/junit/junit-dep/jars/junit-dep-4.8.2.jar" kind="lib"></classpathentry>
   <classpathentry path="/data3/play-2.2.0/repository/local/org.easytesting/fest-assert/1.4/jars/fest-assert.jar" kind="lib"></classpathentry>
   <classpathentry path="/data3/play-2.2.0/repository/local/org.easytesting/fest-util/1.1.6/jars/fest-util.jar" kind="lib"></classpathentry>
+  <classpathentry path="/data3/play-2.2.0/repository/cache/javax.websocket/javax.websocket-api/bundles/javax.websocket-api-1.1.jar" kind="lib"></classpathentry>
+  
   <classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"></classpathentry>
   <classpathentry path="bin" kind="output"></classpathentry>
   <classpathentry path="/data3/play-2.2.0/framework/sbt/boot/scala-2.10.0/lib/scala-library.jar" kind="lib"></classpathentry>
