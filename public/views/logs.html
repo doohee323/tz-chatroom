@@ -1,0 +1,46 @@
+
+<div ng-controller="LogsCtrl" data-ng-init="retrieve()">
+
+  <md-toolbar class="md-theme-light" style="background-color: #f2f2f2;">
+    <h1 class="md-toolbar-tools">
+			<div style="position: absolute;left: 0px;width:35px;height:64px;cursor: pointer;">
+				<a ng-click="refresh()" title="next list">
+					<img src="images/reload.png" style="padding-top: 22px;padding-left: 8px;">
+				</a>
+			</div>
+			<div ng-click="showGridBottomSheet($event)" style="margin-left: 35px;">
+	      <span>주일 말씀</span>
+    	</div>
+			<div style="position: absolute;right: 0px;">
+				<a ng-click="prev()" title="next list" style="cursor: pointer;">
+					<img src="images/prev.png" style="margin-right:0px;">
+				</a>
+				<a ng-click="next()" title="next list" style="cursor: pointer;">
+					<img src="images/next.png" style="margin-right:0px;">
+				</a>
+			</div>
+    </h1>
+  </md-toolbar>
+  
+  <md-content>
+    <md-list>
+      <md-item ng-repeat="item in logs">
+        <md-item-content>
+          <div class="md-tile-left">
+          	<a ng-click="open('{{item}}')" title="show video">
+              <img ng-src="{{item.img}}" alt="{{item.speaker}}" style="margin-left:5px;cursor: pointer;">
+            </a>
+          </div>
+          <div class="md-tile-content" style="margin-left:5px;padding-bottom: 2px;padding-top: 5px;">
+            <h3>[{{item.date}}] {{item.title}} [{{item.content}}]</h3>
+            <h4>{{item.speaker}}</h4>
+            <p>
+              {{item.bible}}
+            </p>
+          </div>
+        </md-item-content>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-item>
+    </md-list>
+  </md-content>
+</div>

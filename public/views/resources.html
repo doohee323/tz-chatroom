@@ -1,0 +1,33 @@
+
+<div ng-controller="ResourcesCtrl" data-ng-init="retrieve()">
+
+  <md-toolbar class="md-theme-light" style="background-color: #f2f2f2;">
+    <h1 class="md-toolbar-tools">
+			<div ng-click="showGridBottomSheet($event)" style="margin-left: 35px;">
+	      <span>Native Resources</span>
+    	</div>
+    </h1>
+  </md-toolbar>
+  
+  <md-content>
+    <md-list>
+      <md-item ng-repeat="item in resources">
+        <md-item-content>
+          <div class="md-tile-left">
+          	<a ng-click="open('{{item}}')" title="show video">
+              <img ng-src="{{item.img}}" alt="{{item.speaker}}" style="margin-left:5px;cursor: pointer;">
+            </a>
+          </div>
+          <div class="md-tile-content" style="margin-left:5px;padding-bottom: 2px;padding-top: 5px;">
+            <h3>[{{item.date}}] {{item.title}} [{{item.content}}]</h3>
+            <h4>{{item.speaker}}</h4>
+            <p>
+              {{item.bible}}
+            </p>
+          </div>
+        </md-item-content>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-item>
+    </md-list>
+  </md-content>
+</div>

@@ -1,0 +1,69 @@
+
+<div ng-controller="SwipeCtrl"> <!--  data-ng-init="retrieve( 1 )" -->
+
+	<div style="position: absolute;left: 0px;width:35px;height:64px;cursor: pointer;">
+		<a ng-click="refresh()" title="next list">
+			<img src="images/reload.png" style="padding-top: 22px;padding-left: 8px;">
+		</a>
+	</div>
+	<div style="margin-left: 35px;">
+		<ul id="nav">
+			<li style='width: 20%;'><a ui-sref="logs">List</a></li>
+			<li style='width: 20%;'><a ui-sref="resources">Resources</a></li>
+		</ul>
+	</div>
+	<div style="position: absolute;right: 0px;">
+		<a ng-click="prev()" title="next list" style="cursor: pointer;">
+			<img src="images/prev.png" style="margin-right:0px;">
+		</a>
+		<a ng-click="next()" title="next list" style="cursor: pointer;">
+			<img src="images/next.png" style="margin-right:0px;">
+		</a>
+	</div>
+
+	<ul id="carousel1">
+    <li ng-repeat="item in words">
+			<div style="background-image:url({{ item.img }});" id="carousel_msg1">
+      	<p style='margin-top: 0px;margin-left: 10px;color:#ffffff; padding-top: 5px;'>{{ item.title }} </p>
+				<div id="container1">
+					<div id="block1">.</div>
+				<div>    
+				<div id="center_align1">
+					<a ng-click="open(item);" class="myButton" style="padding-left: 23px;">Video</a>
+					<a ng-click="sendSns('facebook')" class="myButton" style="padding-left: 9px;">Facebook</a>
+				<div>    
+			</div>
+    </li>
+  </ul>
+  
+</div>
+<div>
+  <input id='chat' type='text' ng-click="change()" style='width: 95%;margin-left: 15px;'/>
+</div>
+
+<script type="text/javascript">
+	var height = $(window).height();
+	var top1 = height - 170;
+	$("#center_align1").css({
+	   "position" : "absolute",
+	   "top" : top1
+	});
+	
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

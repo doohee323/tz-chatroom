@@ -1,0 +1,47 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+#GET     /                          controllers.Application.index()
+GET     /                          	com.locket.common.controller.Application.index()
+
+GET 	/ping						com.locket.support.controllers.ApplicationCtl.ping()
+GET 	/app/version				com.locket.support.controllers.ApplicationCtl.version()
+
+GET		/api/user/info/:id			com.locket.session.controllers.UserCtl.getUserInfo(id:Long)
+GET		/api/user/cash/:id			com.locket.session.controllers.UserCtl.fetchCash(id:Long)
+
+GET		/api/user/update/:id		com.locket.session.controllers.UserCtl.update(id:Long, key:String, value:String)
+
+GET		/api/user/id				com.locket.session.controllers.UserCtl.getUserId(email:String)
+POST	/api/user/login				com.locket.session.controllers.UserCtl.login()
+POST	/api/user/register			com.locket.session.controllers.UserCtl.register()
+POST	/api/user/fbconnect			com.locket.session.controllers.UserCtl.fbconnect()
+GET 	/api/user/loc/update/:uid	com.locket.session.controllers.UserCtl.updateUserLocation(uid:Long)
+GET 	/api/user/tos/update/:uid	com.locket.session.controllers.UserCtl.updateUserTOS(uid:Long,tos:Boolean)
+GET		/api/user/feedback/:uid 	com.locket.session.controllers.UserCtl.LocketFeedback(uid:Long,subject:String,feedback:String)
+
+GET 	/api/sendEmailFromEvent/:requestAt		com.locket.notification.controllers.NotificationCtl.sendEmailFromEvent(requestAt:String)
+
+GET 	/api/allNotification3		com.locket.notification.controllers.Notification3Ctl.getAllNotifications()
+GET 	/api/notification3/:id	com.locket.notification.controllers.Notification3Ctl.getNotification(id:String)
+POST 	/api/notification3			com.locket.notification.controllers.Notification3Ctl.createNotification()
+PUT 	/api/notification3/:id			com.locket.notification.controllers.Notification3Ctl.updateNotification(id:String)
+DELETE 	/api/notification3/:id	com.locket.notification.controllers.Notification3Ctl.deleteNotification(id:String)
+
+GET 	/api/uip_center			com.locket.pattern.controllers.CenterRestCtl.getAllCenters()
+GET 	/api/uip_center/:id		com.locket.pattern.controllers.CenterRestCtl.getCenter(id:String)
+POST 	/api/uip_center			com.locket.pattern.controllers.CenterRestCtl.createCenter()
+PUT 	/api/uip_center/:id		com.locket.pattern.controllers.CenterRestCtl.updateCenter(id:String)
+DELETE 	/api/uip_center/:id		com.locket.pattern.controllers.CenterRestCtl.deleteCenter(id:String)
+
+GET 	/api/uip_region			com.locket.pattern.controllers.RegionRestCtl.getAllRegions()
+GET 	/api/uip_region/:master_id/:id		com.locket.pattern.controllers.RegionRestCtl.getRegion(master_id:String, id:String)
+POST 	/api/uip_region			com.locket.pattern.controllers.RegionRestCtl.createRegion()
+PUT 	/api/uip_region/:id		com.locket.pattern.controllers.RegionRestCtl.updateRegion(id:String)
+DELETE 	/api/uip_region/:id		com.locket.pattern.controllers.RegionRestCtl.deleteRegion(id:String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /*file               controllers.Assets.at(path="/public", file)
+ 

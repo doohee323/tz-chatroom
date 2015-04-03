@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name='tz.chatroom' default='all' basedir='.'>
+	<!-- -->
+	<property file='build.properties' />
+	<property name='app.name' value='${ant.project.name}' />
+
+	<property name='src.dir' value='.' />
+	<property name='run.dir' value='${run.base}/${run.app.name}' />
+
+	<path id="build.classpath">
+		<fileset dir="${src.lib.dir}" includes="**/*.jar" />
+	</path>
+
+	<target name='all'
+		depends='init, build, deploy, compile, play-stop, play-start' />
+
+	<target name='init' description="ant init">
+		<tstamp>
+			<format property="init.time" pattern="yyyyMMdd-HHmmss" />
+		</tstamp>
+		<echo message="delete ${run.dir}" />
+		<delete dir='${run.dir}' quiet='true' />
+	</target>
+
+	<target name='build' description="build tar file in ci server">
+		<sync todir='${run.dir}' includeemptydirs='true' overwrite="true">
+			<fileset dir='${build.base}' />
+		</sync>
+
+		<!-- tar cvf -->
+		<echo message="make ${run.dir}/${app.name}.tar file from ${run.dir}" />
+		<tar destfile="${run.dir}/${app.name}.tar" compression="gzip">
+			<fileset dir="${run.dir}" />
+		</tar>
+	</target>
+
+	<target name='deploy' description="deploy tar file to staging server">
+		<!-- ftp transfer -->
+		<ftp server="${server.ip}" remotedir="${run.base}"
+			userid="${server.id}" password="${server.pw}" newer="no" verbose="yes">
+			<fileset file="${run.dir}/${app.name}.tar"/>
+		</ftp>
+
+<!-- 		<echo message="untar to temp dir" /> -->
+		<telnet userid="${server.id}" password="${server.pw}"
+			server="${server.ip}" timeout="180">
+				<read>&gt;</read>
+			<write>cd ${run.base}</write>
+				<read>${run.base}></read>
+			<write>rm -Rf ${run.dir}_bak</write>
+				<read>${run.base}></read>
+			<write>cp -Rf ${run.dir} ${run.dir}_bak</write>
+				<read>${run.base}></read>
+			<write>mkdir ${run.dir}_tmp</write>
+				<read>${run.base}></read>
+			<write>tar xvf ${run.base}/${app.name}.tar -C ${run.dir}_tmp</write>
+				<read>${run.base}></read>
+
+<!-- 			<echo message="copy resources from temp dir to run dir" /> -->
+			<write>cp -Rf ${run.dir}_tmp/app ${run.dir}</write>
+				<read>${run.base}></read>
+			<write>cp -Rf ${run.dir}/conf ${run.dir}</write>
+				<read>${run.base}></read>
+			<write>cp -Rf ${run.dir}_tmp/lib ${run.dir}</write>
+				<read>${run.base}></read>
+			<write>cp -Rf ${run.dir}_tmp/public ${run.dir}</write>
+				<read>${run.base}></read>
+			<write>cp -Rf ${run.dir}_tmp/test ${run.dir}</write>
+				<read>${run.base}></read>
+				
+<!-- 			<echo message="copy stage server's config" /> -->
+			<write>cp -Rf ${run.dir}_tmp/conf/deploy/stage/*.* ${run.dir}/conf</write>
+				<read>${run.base}></read>
+
+<!-- 			<echo message="remove working dir" /> -->
+			<write>rm -Rf ${run.dir}_tmp</write>
+				<read>${run.base}></read>
+			<write>rm -Rf ${run.base}/${app.name}.tar</write>
+				<read>${run.base}></read>
+
+			<write>chmod 777 ${run.dir}/build_stage.sh</write>
+			<read>${run.base}></read>
+		</telnet>
+	</target>
+
+	<target name='compile' description="compile play in ${run.dir}">
+		<telnet userid="${server.id}" password="${server.pw}"
+			server="${server.ip}" timeout="180">
+			<read>&gt;</read>
+			<write>cd ${run.dir}</write>
+			<read>${run.dir}></read>
+			<write>play compile</write>
+			<read>${run.dir}></read>
+<!-- 			<write>${run.dir}/build_stage.sh compile</write> -->
+		</telnet>
+	</target>
+
+	<target name="play-stop">
+		<echo message="play-stop" />
+		<telnet userid="${server.id}" password="${server.pw}"
+			server="${server.ip}" timeout="180">
+			<read>&gt;</read>
+			<write>cd ${run.dir}</write>
+			<read>${run.dir}></read>
+			<write>play stop</write>
+			<read>${run.dir}></read>
+<!-- 			<write>${run.dir}/build_stage.sh stop</write> -->
+		</telnet>
+	</target>
+
+	<target name="play-start">
+		<echo message="play-start" />
+		<telnet userid="${server.id}" password="${server.pw}"
+			server="${server.ip}" timeout="180">
+			<read>&gt;</read>
+			<write>cd ${run.dir}</write>
+			<read>${run.dir}></read>
+<!-- 			<write>play start</write> -->
+			<write>build_stage.sh start</write>
+			<read>${run.dir}></read>
+<!-- 			<write>${run.dir}/build_stage.sh start</write> -->
+		</telnet>
+	</target>
+	
+	<target name="play-restart" depends='play-stop, play-start'>
+		<echo message="play-stop" />
+		<echo message="play-start" />
+	</target>
+	
+	<target name="reload">
+		<get src="http://localhost:9000/index.html" dest="NUL"/>
+	</target>
+
+</project>
