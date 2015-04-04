@@ -1,5 +1,5 @@
 	
-<div ng-controller="ChatRoomCtrl" data-ng-init="retrieve( 1 )">
+<div ng-controller="ChatRoomCtrl">
 
 	<div style="margin-left: 35px;">
 		<ul id="nav">
@@ -14,20 +14,18 @@
 			<img src="images/next.png" style="margin-right:0px;">
 		</a>
 	</div>
+	
 </div>
-<div>
+<div data-ng-init="retrieve( 1 )">
 	<h2>Chat Room</h2>
 	<h3>Chat Room Name:</h3>
   <input id='chatroom' type='text' style='width: 20%;margin-left: 15px;'/>
 	<a ng-click="insert()" title="" style="cursor: pointer;">
 		Add
 	</a>
-</div>
-
-<div>
-   <div ng-repeat="c in chatroom">
-       {{c.name}}
-       <i class="glyphicon glyphicon-remove" ng-click="delete(c, $index)">
-       </i>
+   <div ng-repeat="room in chatroom">
+       {{room.name}}
+       <i ng-click="delete(room, $index)" style="cursor: pointer;">X</i>
    </div>
 </div>
+

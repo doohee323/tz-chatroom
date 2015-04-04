@@ -5,8 +5,9 @@
 # Home page
 GET     /                                	controllers.Application.index()
 
-POST		/chatroom													controllers.Application.saveChatRooms()
 GET     /chatrooms/:page                  controllers.Application.chatRooms(page)
+POST		/chatroom													controllers.Application.insertChatRoom()
+DELETE	/chatroom													controllers.Application.deleteChatRoom()
 GET     /chatroom/:chatroom               controllers.Application.chatRoom(chatroom)
 GET     /chatroom/chat/:username          controllers.Application.chat(username)
 

@@ -69,17 +69,8 @@ angular.module('chatroomApp').factory('$exceptionHandler', function () {
 	        date: moment().utc().toDate().format('YYYYMMDD HH:mm:ss:SS'),
 	        stack: exception.stack
 	      };
-	    $.ajax({
-	      type: "POST",
-	      url: "http://192.168.1.5:3005/loggingFromClient",
-	      data: errorInfo
-	    }).done(function(data) {
-		  	console.log(errorInfo.stack);
-	  		console.log('sent error message to the server!' + JSON.stringify(errorInfo));
-	    }).fail(function(data) {
-	  		//console.log('can\'t send error message to the server!' + data);
-	    }).always(function(data) {
-			});   			    
+	  	console.log(errorInfo.stack);
+  		console.log('sent error message to the server!' + JSON.stringify(errorInfo));
   	}
     //throw exception;
   };

@@ -1,6 +1,14 @@
 package controllers;
 
+import java.util.Set;
+
 import models.ChatRoom;
+
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ArrayNode;
+import org.codehaus.jackson.node.ObjectNode;
+
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -36,7 +44,7 @@ public class Application extends Controller {
     return ok();
   }
 
-  public static Result saveChatRooms() {
+  public static Result insertChatRoom() {
     String chatroom = AppUtil.getParameter(request(), "chatroom");
     Jedis jedis = RedisManager.getInstance().getJedis();
     try {
@@ -51,20 +59,44 @@ public class Application extends Controller {
     return ok(Msg.SUCCESS.toJson());
   }
 
-  public static Result chatRooms(String page) {
+  public static Result deleteChatRoom() {
+    String chatroom = request().getQueryString("name");
     Jedis jedis = RedisManager.getInstance().getJedis();
-    String rsltStr = null;
     try {
-      String key = ChatRoom.CHATROOM + "*";
-      rsltStr = jedis.get(key) == null ? "" : jedis.get(key);
-      if(rsltStr.equals("")) rsltStr = "{\"chatroom\":[]}";
+      String key = ChatRoom.CHATROOM + chatroom;
+      jedis.del(key);
     } catch (Exception e) {
       e.printStackTrace();
       return ok(Msg.FAIL.toJson());
     } finally {
       RedisManager.getInstance().returnJedis(jedis);
     }
-    return ok(Json.parse(rsltStr));
+    return ok(Msg.SUCCESS.toJson());
+  }
+  
+  public static Result chatRooms(String page) {
+    Jedis jedis = RedisManager.getInstance().getJedis();
+    try {
+      JsonFactory factory = new JsonFactory();
+      ObjectMapper om = new ObjectMapper(factory);
+      factory.setCodec(om);
+      ArrayNode arry = om.createArrayNode();
+      String key = ChatRoom.CHATROOM + "*";
+      Set<String> set = jedis.keys(key);
+      for (String i : set) {
+        String val = jedis.get(i);
+        ObjectNode room = Json.newObject();
+        room.put("name", val);
+        arry.add(room);
+      }
+      String returnStr = "{\"result\":" + arry.toString() + "}";
+      return ok(Msg.SUCCESS.toJson(0, returnStr));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ok(Msg.FAIL.toJson());
+    } finally {
+      RedisManager.getInstance().returnJedis(jedis);
+    }
   }
 
   public static Result chatRoom(String chatroom) {

@@ -3,14 +3,14 @@
 angular.module('chatroomApp')
 .factory('ChatroomService', function ($resource, config) {
   return {
-    L: $resource("/chatrooms/:id", {
-    	user_id:"@id"
+    L: $resource("/chatrooms/:page", {
+    	page:"@page"
 	}),
-    R: $resource("/chatroom/:id", {
-    	user_id:"@id"
+    R: $resource("/chatroom/:page", {
+    	page:"@page"
 	}),
-    CUD: $resource("/chatroom/:id", {
-		user_id:"@id"
+    CUD: $resource("/chatroom/:page", {
+		page:"@page"
 		}, { 
 			update: {
 				method: "PUT"

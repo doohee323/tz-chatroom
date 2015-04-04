@@ -29,10 +29,9 @@ angular.module('chatroomApp')
 	if(!id) {
 		id = currentRow;
 	}
-	ChatroomService.L.get({'id':id}, function(data) {
-debugger;
-		if(data.chatroom) {
-			$scope.chatroom = data.chatroom;
+	ChatroomService.L.get({'page':id}, function(data) {
+		if(data.result) {
+			$scope.chatroom = data.result;
 		}
 	}, function(error) {
 	});
@@ -43,18 +42,19 @@ debugger;
   	var params = {'chatroom': chatroom.value};
   	ChatroomService.CUD.save(params, function (result) {
 		if(result.code == 0) {
-			$scope.chatroom[$scope.chatroom.length] = chatroom.value;
+			$scope.chatroom[$scope.chatroom.length] = {};
+			$scope.chatroom[$scope.chatroom.length - 1].name = chatroom.value;
 		}
 	}, function(error) {
 		
 	});
   }
 	  
-  $scope.delete = function() {
-  	var params = $scope.chatroom;
+  $scope.delete = function(room, indx) {
+  	var params = $scope.chatroom[indx];
   	ChatroomService.CUD.delete(params, function (result) {
-		if(data.rows) {
-			$scope.chatroom = data.rows;
+		if(result.code == 0) {
+			$scope.chatroom.splice(indx, 1);    
 		}
 	}, function(error) {
 	});
