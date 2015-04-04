@@ -3,7 +3,7 @@
 var wsUri = "ws://localhost:9000/room/chat/aaa"; 
 var websocket = new WebSocket(wsUri); 
 
-angular.module('concordchurchApp')
+angular.module('chatroomApp')
 .controller('ChatCtrl', function($scope, $http, $state, ChatService) {
 
 	var output = document.getElementById("output");  

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('concordchurchApp')
+angular.module('chatroomApp')
 .controller('ChatRoomCtrl', function($scope, $http, $state, ChatService) {
 
   $scope.talk = function() {

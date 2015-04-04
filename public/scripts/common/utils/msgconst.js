@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('concordchurchApp')
+angular.module('chatroomApp')
   .value('msgconst', {
 	httpStatus_400: {
 		code: "BAD_REQUEST",

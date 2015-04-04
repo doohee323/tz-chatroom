@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc overview
- * @name concordchurchApp
+ * @name chatroomApp
  * @description
- * # concordchurchApp
+ * # chatroomApp
  *
  * Main module of the application.
  */
@@ -16,7 +16,7 @@ var config = {
 };
  
 angular
-  .module('concordchurchApp', [
+  .module('chatroomApp', [
     'ngCookies',
     'ngResource',
     'ngRoute',
@@ -53,7 +53,7 @@ angular
   
 }]);
 
-angular.module('concordchurchApp').factory('$exceptionHandler', function () {
+angular.module('chatroomApp').factory('$exceptionHandler', function () {
   return function (exception, cause) {
   	if(exception.message == "Cannot read property 'resolve' of undefined") {
   		console.log(exception.message);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('concordchurchApp')
+angular.module('chatroomApp')
 .factory('ChatroomService', function ($resource, config) {
   return {
     R: $resource("/bbs/:id", {

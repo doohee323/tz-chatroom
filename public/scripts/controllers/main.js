@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc function
- * @name concordchurchApp.controller:MainCtrl
+ * @name chatroomApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the concordchurchApp
+ * Controller of the chatroomApp
  */
-angular.module('concordchurchApp')
+angular.module('chatroomApp')
   .controller('MainCtrl', function ($scope) {
 });
