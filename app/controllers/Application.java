@@ -31,41 +31,41 @@ public class Application extends Controller {
    * Display the home page.
    */
   public static Result index() {
-      return ok();
+    return ok();
   }
 
   /**
    * Display the chat room.
    */
   public static Result chatRoom(String username) {
-      if(username == null || username.trim().equals("")) {
-          flash("error", "Please choose a valid username.");
-          //return redirect(routes.Application.index());
-      }
-      
-      return ok();
+    if (username == null || username.trim().equals("")) {
+      flash("error", "Please choose a valid username.");
+      // return redirect(routes.Application.index());
+    }
+
+    return ok();
   }
 
   public static Result chatRoomJs(String username) {
-      return ok();
+    return ok();
   }
-  
+
   /**
    * Handle the chat websocket.
    */
   public static WebSocket<String> chat(final String username) {
-      return new WebSocket<String>() {
-          
-          // Called when the Websocket Handshake is done.
-          public void onReady(WebSocket.In<String> in, WebSocket.Out<String> out){
-              
-              // Join the chat room.
-              try { 
-                  ChatRoom.join(username, in, out);
-              } catch (Exception ex) {
-                  ex.printStackTrace();
-              }
-          }
-      };
+    return new WebSocket<String>() {
+
+      // Called when the Websocket Handshake is done.
+      public void onReady(WebSocket.In<String> in, WebSocket.Out<String> out) {
+
+        // Join the chat room.
+        try {
+          new ChatRoom().join(username, in, out);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+        }
+      }
+    };
   }
 }
