@@ -1,6 +1,5 @@
-
 	
-<div ng-controller="ChatCtrl"> <!--  data-ng-init="retrieve( 1 )" -->
+<div ng-controller="ChatRoomCtrl" data-ng-init="retrieve( 1 )">
 
 	<div style="margin-left: 35px;">
 		<ul id="nav">
@@ -15,44 +14,20 @@
 			<img src="images/next.png" style="margin-right:0px;">
 		</a>
 	</div>
-
 </div>
 <div>
-	<h2>Chat room</h2>
-	<h3>User Name:</h3>
-  <input id='username' type='text' style='width: 20%;margin-left: 15px;'/>
-	<a ng-click="join()" title="" style="cursor: pointer;">
-		Join
+	<h2>Chat Room</h2>
+	<h3>Chat Room Name:</h3>
+  <input id='chatroom' type='text' style='width: 20%;margin-left: 15px;'/>
+	<a ng-click="insert()" title="" style="cursor: pointer;">
+		Add
 	</a>
-  <input id='talk' type='text' style='width: 90%;margin-left: 15px;'/>
-	<a ng-click="talk()" title="" style="cursor: pointer;">
-		Send
-	</a>
-	<div id="output"></div>
 </div>
 
-<script type="text/javascript">
-	var height = $(window).height();
-	var top1 = height - 170;
-	$("#center_align1").css({
-	   "position" : "absolute",
-	   "top" : top1
-	});
-	
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div>
+   <div ng-repeat="c in chatroom">
+       {{c.name}}
+       <i class="glyphicon glyphicon-remove" ng-click="delete(c, $index)">
+       </i>
+   </div>
+</div>

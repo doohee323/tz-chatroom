@@ -5,10 +5,10 @@
 # Home page
 GET     /                                	controllers.Application.index()
 
-POST		/room															controllers.Application.saveChatRooms()
-GET     /rooms                            controllers.Application.chatRooms()
-GET     /room/:chatroom                   controllers.Application.chatRoom(chatroom)
-GET     /room/chat/:username              controllers.Application.chat(username)
+POST		/chatroom													controllers.Application.saveChatRooms()
+GET     /chatrooms/:page                  controllers.Application.chatRooms(page)
+GET     /chatroom/:chatroom               controllers.Application.chatRoom(chatroom)
+GET     /chatroom/chat/:username          controllers.Application.chat(username)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)

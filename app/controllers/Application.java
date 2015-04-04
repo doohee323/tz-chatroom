@@ -40,7 +40,7 @@ public class Application extends Controller {
     String chatroom = AppUtil.getParameter(request(), "chatroom");
     Jedis jedis = RedisManager.getInstance().getJedis();
     try {
-      String key = ChatRoom.CHATROOM + "*";
+      String key = ChatRoom.CHATROOM + chatroom;
       jedis.set(key, chatroom);
     } catch (Exception e) {
       e.printStackTrace();
@@ -51,12 +51,13 @@ public class Application extends Controller {
     return ok(Msg.SUCCESS.toJson());
   }
 
-  public static Result chatRooms() {
+  public static Result chatRooms(String page) {
     Jedis jedis = RedisManager.getInstance().getJedis();
     String rsltStr = null;
     try {
       String key = ChatRoom.CHATROOM + "*";
       rsltStr = jedis.get(key) == null ? "" : jedis.get(key);
+      if(rsltStr.equals("")) rsltStr = "{\"chatroom\":[]}";
     } catch (Exception e) {
       e.printStackTrace();
       return ok(Msg.FAIL.toJson());

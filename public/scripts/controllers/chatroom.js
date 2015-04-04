@@ -1,32 +1,63 @@
 'use strict';
 
 angular.module('chatroomApp')
-.controller('ChatRoomCtrl', function($scope, $http, $state, ChatService) {
+.controller('ChatRoomCtrl', function($scope, $http, $state, ChatroomService) {
 
   $scope.talk = function() {
 	var chat = document.getElementById("talk");
 	websocket.send(chat.value);
   }  
-		
+
+  var currentRow = 1;
+  $scope.next = function(id) {
+    if(!id) {
+    	id = currentRow + 1;
+    	currentRow = id;
+    }
+	$scope.retrieve(id);
+  }
+
+  $scope.prev = function(id) {
+    if(!id) {
+    	id = currentRow - 1;
+    	currentRow = id;
+    }
+	$scope.retrieve(id);
+  }
+  
   $scope.retrieve = function(id) {
 	if(!id) {
 		id = currentRow;
 	}
-	ChatService.R.get({'id':id}, function(data) {
-		if(data.rows) {
-			$scope.words = data.rows;
-			localStorage.setItem(prefix + id, JSON.stringify($scope.words));
-			if(Android) {
-				Android.cacheJson(JSON.stringify($scope.words));
-			}
-	    config.curitem = $scope.words[0];
+	ChatroomService.L.get({'id':id}, function(data) {
+debugger;
+		if(data.chatroom) {
+			$scope.chatroom = data.chatroom;
 		}
 	}, function(error) {
-		var datast = localStorage.getItem(prefix + id);
-		if(datast) {
-			$scope.words = JSON.parse(datast);
-	    config.curitem = $scope.words[0];
-	  }
 	});
   }
+  
+  $scope.insert = function() {
+	var chatroom = document.getElementById("chatroom");
+  	var params = {'chatroom': chatroom.value};
+  	ChatroomService.CUD.save(params, function (result) {
+		if(result.code == 0) {
+			$scope.chatroom[$scope.chatroom.length] = chatroom.value;
+		}
+	}, function(error) {
+		
+	});
+  }
+	  
+  $scope.delete = function() {
+  	var params = $scope.chatroom;
+  	ChatroomService.CUD.delete(params, function (result) {
+		if(data.rows) {
+			$scope.chatroom = data.rows;
+		}
+	}, function(error) {
+	});
+  }
+	  
 });

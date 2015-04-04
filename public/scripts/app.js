@@ -10,8 +10,7 @@
  */
 
 var config = {
-	api_url:'http://52.0.156.206:3000'
-//	api_url:'http://192.168.1.17:3000'
+	api_url:'http://localhost:9000'
 };
  
 angular
