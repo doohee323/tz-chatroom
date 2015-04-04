@@ -4,7 +4,7 @@ var wsUri = "ws://localhost:9000/room/chat/aaa";
 var websocket = new WebSocket(wsUri); 
 
 angular.module('concordchurchApp')
-.controller('SwipeCtrl', function($scope, $http, $state, SwipeService) {
+.controller('ChatCtrl', function($scope, $http, $state, ChatService) {
 
 	var output = document.getElementById("output");  
 	websocket.onopen = function(evt) { 
@@ -35,7 +35,7 @@ angular.module('concordchurchApp')
 	if(!id) {
 		id = currentRow;
 	}
-	SwipeService.R.get({'id':id}, function(data) {
+	ChatService.R.get({'id':id}, function(data) {
 		if(data.rows) {
 			$scope.words = data.rows;
 			localStorage.setItem(prefix + id, JSON.stringify($scope.words));

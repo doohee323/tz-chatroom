@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('concordchurchApp')
-.controller('ChatRoomCtrl', function($scope, $http, $state, SwipeService) {
+.controller('ChatRoomCtrl', function($scope, $http, $state, ChatService) {
 
   $scope.talk = function() {
 	var chat = document.getElementById("talk");
@@ -12,7 +12,7 @@ angular.module('concordchurchApp')
 	if(!id) {
 		id = currentRow;
 	}
-	SwipeService.R.get({'id':id}, function(data) {
+	ChatService.R.get({'id':id}, function(data) {
 		if(data.rows) {
 			$scope.words = data.rows;
 			localStorage.setItem(prefix + id, JSON.stringify($scope.words));

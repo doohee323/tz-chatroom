@@ -1,9 +1,0 @@
-# make sure the storage is MyIsam on the server 
-# make sure the encoding is UTF-8 and not latin1 
-
-alter table USER modify column user_id bigint;
-alter table USER change user_id id bigint (20);
-alter table USER drop column cash_update_counter;
-alter table USER drop column cash_update_timestamp;
-RENAME TABLE USER to user;
-

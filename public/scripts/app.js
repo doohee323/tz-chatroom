@@ -42,7 +42,7 @@ angular
 	}).state('swipe', {
 		url: '/main',
 		templateUrl: 'views/swipe.html',
-		controller: 'SwipeCtrl'
+		controller: 'ChatCtrl'
 	});
 	
   /**
