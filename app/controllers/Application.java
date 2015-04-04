@@ -1,9 +1,6 @@
 package controllers;
 
 import models.ChatRoom;
-
-import org.codehaus.jackson.JsonNode;
-
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.WebSocket;
@@ -50,16 +47,11 @@ public class Application extends Controller {
     return ok();
   }
 
-  /**
-   * Handle the chat websocket.
+  /** join
    */
   public static WebSocket<String> chat(final String username) {
     return new WebSocket<String>() {
-
-      // Called when the Websocket Handshake is done.
       public void onReady(WebSocket.In<String> in, WebSocket.Out<String> out) {
-
-        // Join the chat room.
         try {
           new ChatRoom().join(username, in, out);
         } catch (Exception ex) {

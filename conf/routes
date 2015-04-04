@@ -3,17 +3,13 @@
 # ~~~~
 
 # Home page
-GET     /                                controllers.Application.index()
-GET     /room                            controllers.Application.chatRoom(username: String ?= null)
-GET     /room/chat/:username                      controllers.Application.chat(username)
-GET     /assets/javascripts/chatroom.js  controllers.Application.chatRoomJs(username)
+GET     /                                	controllers.Application.index()
 
-#GET 	/ping					com.locket.support.controllers.ApplicationCtl.ping()
-#GET 	/app/version				com.locket.support.controllers.ApplicationCtl.version()
-#GET		/api/user/info/:id			com.locket.session.controllers.UserCtl.getUserInfo(id:Long)
-#POST	/api/user/login				com.locket.session.controllers.UserCtl.login()
-#PUT 	/api/notification3/:id			com.locket.notification.controllers.Notification3Ctl.updateNotification(id:String)
-#DELETE 	/api/notification3/:id	com.locket.notification.controllers.Notification3Ctl.deleteNotification(id:String)
+POST		/room															controllers.Application.chatRoom()
+GET     /rooms                            controllers.Application.chatRoom()
+GET     /room                            	controllers.Application.chatRoom(chatroom)
+GET     /room/chat/:username              controllers.Application.chat(username)
+GET     /assets/javascripts/chatroom.js  	controllers.Application.chatRoomJs(username)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)

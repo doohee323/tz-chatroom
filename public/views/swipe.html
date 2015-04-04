@@ -22,26 +22,16 @@
 		</a>
 	</div>
 
-	<ul id="carousel1">
-    <li ng-repeat="item in words">
-			<div style="background-image:url({{ item.img }});" id="carousel_msg1">
-      	<p style='margin-top: 0px;margin-left: 10px;color:#ffffff; padding-top: 5px;'>{{ item.title }} </p>
-				<div id="container1">
-					<div id="block1">.</div>
-				<div>    
-				<div id="center_align1">
-					<a ng-click="open(item);" class="myButton" style="padding-left: 23px;">Video</a>
-					<a ng-click="sendSns('facebook')" class="myButton" style="padding-left: 9px;">Facebook</a>
-				<div>    
-			</div>
-    </li>
-  </ul>
-  
 </div>
 <div>
-	<h2>WebSocket Test</h2>
-  <input id='chat' type='text' style='width: 90%;margin-left: 15px;'/>
-	<a ng-click="send()" title="" style="cursor: pointer;">
+	<h2>Chat room</h2>
+	<h3>User Name:</h3>
+  <input id='username' type='text' style='width: 20%;margin-left: 15px;'/>
+	<a ng-click="join()" title="" style="cursor: pointer;">
+		Join
+	</a>
+  <input id='talk' type='text' style='width: 90%;margin-left: 15px;'/>
+	<a ng-click="talk()" title="" style="cursor: pointer;">
 		Send
 	</a>
 	<div id="output"></div>

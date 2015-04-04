@@ -30,7 +30,6 @@ angular
   
   	$httpProvider.defaults.useXDomain = true;
   	$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';
-	//delete $httpProvider.defaults.headers.common['X-Requested-With'];
   
 	$stateProvider.state('index', {
 		url: "",
@@ -40,18 +39,6 @@ angular
 		url: '/main',
 		templateUrl: 'views/swipe.html',
 		controller: 'SwipeCtrl'
-	}).state('logs', {
-		url: '/logs',
-		templateUrl: 'views/logs.html',
-		controller: 'LogsCtrl'
-	}).state('resources', {
-		url: '/resources',
-		templateUrl: 'views/resources.html',
-		controller: 'ResourcesCtrl'
-	}).state('video', {
-		url: '/video',
-		templateUrl: 'views/video.html',
-		controller: 'VideoCtrl'
 	});
 	
   /**
