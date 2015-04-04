@@ -33,8 +33,12 @@ angular
   
 	$stateProvider.state('index', {
 		url: "",
-		templateUrl: 'views/swipe.html',
-		controller: 'SwipeCtrl'
+		templateUrl: 'views/chatroom.html',
+		controller: 'ChatRoomCtrl'
+	}).state('chatRooms', {
+		url: '/main',
+		templateUrl: 'views/chatroom.html',
+		controller: 'ChatRoomCtrl'
 	}).state('swipe', {
 		url: '/main',
 		templateUrl: 'views/swipe.html',

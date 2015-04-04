@@ -2,7 +2,6 @@ package models;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.codehaus.jackson.JsonNode;
@@ -23,8 +22,9 @@ import services.RedisManager;
  */
 public class ChatRoom { 
 
-  private static final String CHANNEL = "messages";
-  private static final String MEMBERS = "members";
+  public static final String CHATROOM = "topzone:chatroom:";
+  public static final String MEMBERS = "members:";
+  public static final String CHANNEL = "messages:";
   private static Map<String, WebSocket.Out<String>> members;
 
   public ChatRoom() {
@@ -36,8 +36,9 @@ public class ChatRoom {
     Akka.system().scheduler()
         .scheduleOnce(Duration.create(10, TimeUnit.MILLISECONDS), new Runnable() {
           public void run() {
+            String jchannel = CHATROOM + CHANNEL;
             Jedis j = RedisManager.getInstance().getJedis();
-            j.subscribe(new MyListener(), CHANNEL);
+            j.subscribe(new MyListener(), jchannel);
           }
         }, Akka.system().dispatcher());
   }
@@ -46,6 +47,7 @@ public class ChatRoom {
    */
   public void join(final String username, WebSocket.In<String> in, WebSocket.Out<String> out)
       throws Exception {
+
     onReceive(new Join(username, out));
 
     in.onMessage(new Callback<String>() {
@@ -53,9 +55,10 @@ public class ChatRoom {
         if(event == null || event.equals("")) return;
         Jedis j = RedisManager.getInstance().getJedis();
         try {
+          String jchannel = CHATROOM + CHANNEL;
           JsonNode json = Json.parse(event);
           Talk talk = new Talk(username, json.get("name").toString());
-          j.publish(ChatRoom.CHANNEL, Json.stringify(Json.toJson(talk)));
+          j.publish(jchannel, Json.stringify(Json.toJson(talk)));
         } catch (Exception e) {
           e.printStackTrace();
         } finally {
@@ -84,19 +87,20 @@ public class ChatRoom {
   public void onReceive(Object message) throws Exception {
     Jedis j = RedisManager.getInstance().getJedis();
     try {
+      String jmembers = CHATROOM + MEMBERS;
       if (message instanceof Join) {
         Join join = (Join) message;
-        if (j.sismember(MEMBERS, join.username)) {
+        if (j.sismember(jmembers, join.username)) {
           ChatRoom.remoteMessage(join.username, "This username is already used!");
         } else {
           members.put(join.username, join.channel);
-          j.sadd(MEMBERS, join.username);
+          j.sadd(jmembers, join.username);
           ChatRoom.remoteMessage(join.username, "OK");
         }
       } else if (message instanceof Quit) {
         Quit quit = (Quit) message;
         members.remove(quit.username);
-        j.srem(MEMBERS, quit.username);
+        j.srem(jmembers, quit.username);
       } else if (message instanceof Talk) {
         Talk talk = (Talk) message;
         notifyAll("talk", talk.username, talk.text);
@@ -111,13 +115,14 @@ public class ChatRoom {
   public void notifyAll(String kind, String user, String text) {
     Jedis j = RedisManager.getInstance().getJedis();
     try {
+      String jmembers = CHATROOM + MEMBERS;
       for (WebSocket.Out<String> channel : members.values()) {
         ObjectNode event = Json.newObject();
         event.put("kind", kind);
         event.put("user", user);
         event.put("message", text);
         ArrayNode m = event.putArray("members");
-        for (String u : j.smembers(MEMBERS)) {
+        for (String u : j.smembers(jmembers)) {
           m.add(u);
         }
         channel.write(event.toString());
