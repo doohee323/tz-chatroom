@@ -5,11 +5,14 @@
 # Home page
 GET     /                                	controllers.Application.index()
 
+GET     /chatroom/join/:username  				controllers.Application.join(username)
+
 GET     /chatrooms/:page                  controllers.Application.chatRooms(page)
 POST		/chatroom													controllers.Application.insertChatRoom()
 DELETE	/chatroom													controllers.Application.deleteChatRoom()
 GET     /chatroom/:chatroom               controllers.Application.chatRoom(chatroom)
-GET     /chatroom/chat/:username          controllers.Application.chat(username)
+
+GET     /chatroom/chat/:param  						controllers.Application.chat(param)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /*file               controllers.Assets.at(path="/public", file)

@@ -56,3 +56,10 @@
 	background-color: #fff; 
 }
 /* End navigation bar styling. */ 
+
+#output {
+    height: 340px;
+    float: left;
+    overflow: auto;
+    overflow-x: hidden;
+}

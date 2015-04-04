@@ -3,11 +3,6 @@
 angular.module('chatroomApp')
 .controller('ChatRoomCtrl', function($scope, $http, $state, ChatroomService) {
 
-  $scope.talk = function() {
-	var chat = document.getElementById("talk");
-	websocket.send(chat.value);
-  }  
-
   var currentRow = 1;
   $scope.next = function(id) {
     if(!id) {
@@ -59,5 +54,9 @@ angular.module('chatroomApp')
 	}, function(error) {
 	});
   }
-	  
+
+  $scope.join = function(chatroom) {
+	$state.go('chat', {chatroom: chatroom.name});
+  }  
+  
 });

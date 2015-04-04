@@ -38,7 +38,7 @@ angular
 		templateUrl: 'views/chatroom.html',
 		controller: 'ChatRoomCtrl'
 	}).state('chat', {
-		url: '/main',
+		url: '/main/:chatroom',
 		templateUrl: 'views/chat.html',
 		controller: 'ChatCtrl'
 	});

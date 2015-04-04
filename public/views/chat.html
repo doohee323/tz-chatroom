@@ -1,11 +1,9 @@
 
 <script>
-debugger;
-var wsUri = "ws://localhost:9000/chatroom/chat/aaa"; 
-var websocket = new WebSocket(wsUri); 
+var websocket; 
 </script>
 	
-<div ng-controller="ChatCtrl"> <!--  data-ng-init="retrieve( 1 )" -->
+<div ng-controller="ChatCtrl">
 
 	<div style="margin-left: 35px;">
 		<ul id="nav">
@@ -22,38 +20,17 @@ var websocket = new WebSocket(wsUri);
 	</div>
 
 </div>
-<div>
-	<h2>Chat room</h2>
+<div data-ng-init="init()">
+	<h2>Chat room: <div id="chatroom">{{chatroom}}</div></h2>
 	<h3>User Name:</h3>
-  <input id='username' type='text' style='width: 20%;margin-left: 15px;'/>
-	<a ng-click="join()" title="" style="cursor: pointer;">
-		Join
-	</a>
-  <input id='talk' type='text' style='width: 90%;margin-left: 15px;'/>
-	<a ng-click="talk()" title="" style="cursor: pointer;">
-		Send
-	</a>
+  <input ng-model="username" id="username" type='text' style='width: 20%;margin-left: 15px;'/>
+	<a ng-click="join()" title="" style="cursor: pointer;">Join</a>
+	<a ng-click="quit()" title="" style="cursor: pointer;">Quit</a>
+	<a ng-click="clear()" title="" style="cursor: pointer;">Clear</a>
+  <input ng-model="text" type='text' style='width: 90%;margin-left: 15px;'/>
+	<a ng-click="talk()" title="" style="cursor: pointer;">Send</a>
 	<div id="output"></div>
 </div>
-
-<script type="text/javascript">
-	var height = $(window).height();
-	var top1 = height - 170;
-	$("#center_align1").css({
-	   "position" : "absolute",
-	   "top" : top1
-	});
-	
-</script>
-
-
-
-
-
-
-
-
-
 
 
 

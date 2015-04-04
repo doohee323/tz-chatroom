@@ -1,76 +1,79 @@
 'use strict';
 
 angular.module('chatroomApp')
-.controller('ChatCtrl', function($scope, $http, $state, ChatService) {
+.controller('ChatCtrl', function($scope, $http, $state, $stateParams, ChatService) {
 
-	var output = document.getElementById("output");  
-	websocket.onopen = function(evt) { 
-		onOpen(evt) 
+  $scope.init = function() {
+	$scope.chatroom = $stateParams.chatroom;
+  }  
+  
+  $scope.join = function() {
+	var param = {
+		type: 'join',
+		chatroom: $scope.chatroom,
+		username: $scope.username
 	}
-
+	var wsUri = "ws://localhost:9000/chatroom/chat/" + JSON.stringify(param);
+	websocket = new WebSocket(wsUri);
+	
+	var output = $('#output')[0];  
+	websocket.onopen = function(evt) { 
+	}
 	websocket.onclose = function(evt) {
-		onClose(evt) 
+		writeMsg("passed out...");
 	}; 
 	websocket.onmessage = function(evt) { 
 		onMessage(evt) 
 	}; 
 	websocket.onerror = function(evt) { 
 		onError(evt) 
-	}; 
-	
-  $scope.join = function() {
-	var username = document.getElementById("username");
-	websocket.join(username.value);
-  }  
-	
-  $scope.talk = function() {
-	var chat = document.getElementById("talk");
-	websocket.send(chat.value);
-  }  
-		
-  $scope.retrieve = function(id) {
-	if(!id) {
-		id = currentRow;
+	};	
+  }
+  
+  $scope.quit = function() {
+	var param = {
+		type: 'quit',
+		chatroom: $scope.chatroom,
+		username: $scope.username
 	}
-	ChatService.R.get({'id':id}, function(data) {
-		if(data.rows) {
-			$scope.words = data.rows;
-			localStorage.setItem(prefix + id, JSON.stringify($scope.words));
-			if(Android) {
-				Android.cacheJson(JSON.stringify($scope.words));
-			}
-	    config.curitem = $scope.words[0];
-		}
-	}, function(error) {
-		var datast = localStorage.getItem(prefix + id);
-		if(datast) {
-			$scope.words = JSON.parse(datast);
-	    config.curitem = $scope.words[0];
-	  }
-	});
+	websocket.send(JSON.stringify(param));
+	websocket.close();
+  }  
+  
+  $scope.talk = function() {
+	var param = {
+		type: 'talk',
+		chatroom: $scope.chatroom,
+		username: $scope.username,
+		text: $scope.text
+	};
+	websocket.send(JSON.stringify(param));
+  } 
+  
+  $scope.clear = function() {
+	  $('#output').text('')  
   }
 });
 
-function onOpen(evt) { 
-	writeToScreen("CONNECTED"); 
-	doSend("WebSocket rocks"); 
-}  
-function onClose(evt) { 
-	writeToScreen("DISCONNECTED"); 
-}  
 function onMessage(evt) { 
-	writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>'); 
+	writeMsg('<span style="color: blue;"> >: ' + evt.data+'</span>'); 
 }  
 function onError(evt) { 
-	writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data); 
+	writeMsg('<span style="color: red;">ERROR:</span> ' + evt.data); 
 }  
 function doSend(message) { 
-	writeToScreen("SENT: " + message);  
-	websocket.send(message); 
+//	writeMsg("SENT: " + message);
+	var param = {
+		chatroom: $('#chatroom').text(),
+		username: $('#username').val(),
+		text: message
+	};
+	websocket.send(JSON.stringify(param)); 
 }  
-function writeToScreen(message) { 
+function writeMsg(message) { 
 	var pre = document.createElement("p"); 
 	pre.style.wordWrap = "break-word"; 
-	pre.innerHTML = message; output.appendChild(pre); 
+	pre.innerHTML = message;
+	$('#output')[0].appendChild(pre); 
 } 
 
