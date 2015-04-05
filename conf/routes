@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                                	controllers.Application.index()
+#GET     /                                	controllers.Application.index()
 
 GET     /chatroom/join/:username  				controllers.Application.join(username)
 
@@ -15,5 +15,5 @@ GET     /chatroom/:chatroom               controllers.Application.chatRoom(chatr
 GET     /chatroom/chat/:param  						controllers.Application.chat(param)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /*file               controllers.Assets.at(path="/public", file)
- 
+GET     /         controllers.Assets.at(path = "/public", file = "index.html")
+GET     /*file    controllers.Assets.at(path = "/public", file)
