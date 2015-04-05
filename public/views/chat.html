@@ -19,7 +19,8 @@ var websocket;
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input ng-model="username" id="username" type='text' class="form-control" placeholder="Input user name" />
+                        <input ng-model="username" id="username" ng-keypress="($event.which === 13)?join():0" 
+                        	type='text' class="form-control" placeholder="Input user name" />
                         <span class="input-group-btn">
                             <button class="btn btn-info" type="button" ng-click="join()">Join</button>
                             <button class="btn btn-info" type="button" ng-click="quit()">Quit</button>
@@ -27,7 +28,8 @@ var websocket;
                         </span>
                     </div>
                     <div class="input-group">
-                        <input ng-model="text" type="text" id='chatroom' class="form-control" placeholder="Input text" />
+                        <input ng-model="text" id='chatroom'  ng-keypress="($event.which === 13)?talk():0" 
+                        	type="text" class="form-control" placeholder="Input text." />
                         <span class="input-group-btn">
                             <button class="btn btn-info" type="button" ng-click="talk()">Send</button>
                         </span>

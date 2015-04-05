@@ -68,6 +68,7 @@ public class AppUtil {
       Runtime runtime = Runtime.getRuntime();
       long freeMem = runtime.freeMemory() / 1024;
       String maxMemory = Play.application().configuration().getString("tz.maxMemory");
+      Logger.debug("freeMem: " + freeMem + " / maxMemory: " + maxMemory);
       if (freeMem < Integer.parseInt(maxMemory)) {
         Logger.error("Not Enough Memory!");
         return false;

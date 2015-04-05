@@ -117,13 +117,18 @@ public class ChatRoom {
         if (AppUtil.isEnoughMemory()) {
           if (username != null) {
             String jmembers = ROOT + chatroom + ":" + username;
+            String ipaddr = json.has("ipaddr") ? json.get("ipaddr").asText() : "";
             if (j.sismember(jmembers, username)) {
-              ChatRoom.remoteMessage(channel, "This username is already used!");
-              Logger.debug("This username is already used!" + jmembers);
+//              ChatRoom.remoteMessage(channel, "This username is already used!");
+//              Logger.debug("This username is already used!" + jmembers);
+              members.put(jmembers, channel);
+              j.sadd(jmembers, username);
+              String msg = ipaddr + " joined the party!(" + username + ")";
+              Logger.debug("join again: " + msg);
+              ChatRoom.broadcast(ROOT + chatroom, msg);
             } else {
               members.put(jmembers, channel);
               j.sadd(jmembers, username);
-              String ipaddr = json.has("ipaddr") ? json.get("ipaddr").asText() : "";
               String msg = ipaddr + " joined the party!(" + username + ")";
               Logger.debug("join: " + msg);
               ChatRoom.broadcast(ROOT + chatroom, msg);

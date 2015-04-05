@@ -10,17 +10,17 @@
                 <div class="panel-body" >
                     <ul class="media-list" ng-repeat="room in chatroom">
                     <li class="media">
-                       <div class="col-sm-4">
+                       <div class="col-sm-1">
                            <a class="pull-left" ng-click="join(room)" style="cursor: pointer;">
                                <img class="media-object img-circle " style="width:30px;height:30px;" src="images/room.png" />
                            </a>
                        </div>
-                       <div class="col-sm-6">
-                           <a class="pull-left" ng-click="join(room)" style="cursor: pointer;width:350px">
+                       <div class="col-sm-10" style="font-size: 180%;">
+                           <a class="pull-left" ng-click="join(room)" style="cursor: pointer;width:80%">
                                {{room.name}}
                            </a>
                        </div>
-                       <div class="col-sm-2">
+                       <div class="col-sm-1">
                            <a class="pull-left" ng-click="delete(room, $index)" style="cursor: pointer;width:30px">
                                <img class="media-object img-circle " style="width:30px;height:30px;" src="images/delete.png" />
                            </a>
@@ -30,7 +30,8 @@
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input type="text" id='chatroom' class="form-control" placeholder="Input new Chat Room:" />
+                        <input id='chatroom' ng-keypress="($event.which === 13)?insert():0" 
+                        	type="text" class="form-control" placeholder="Input new chat room." />
                         <span class="input-group-btn">
                             <button class="btn btn-info" type="button" ng-click="insert()">Make</button>
                         </span>

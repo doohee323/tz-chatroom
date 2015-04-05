@@ -20,6 +20,7 @@ angular.module('chatroomApp')
 			$scope.chatroom[$scope.chatroom.length] = {};
 			$scope.chatroom[$scope.chatroom.length - 1].name = chatroom.value;
 		}
+		$('#chatroom').val('');
 	}, function(error) {
 		
 	});

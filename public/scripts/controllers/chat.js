@@ -1,26 +1,28 @@
 'use strict';
 
 angular.module('chatroomApp')
-.controller('ChatCtrl', function($scope, $http, $state, $stateParams, config, ChatService) {
+.controller('ChatCtrl', function($scope, $http, $state, $stateParams, $timeout, config, ChatService) {
 
   $scope.init = function() {
 	$scope.chatroom = $stateParams.chatroom;
   }  
   
+  var wsUri;
   $scope.join = function() {
 	var param = {
 		type: 'join',
 		chatroom: $scope.chatroom,
 		username: $scope.username
 	}
-	var wsUri = config.ws_url + "/chatroom/chat/" + JSON.stringify(param);
-	websocket = new WebSocket(wsUri);
+	wsUri = config.ws_url + "/chatroom/chat/" + JSON.stringify(param);
+	websocket = new ReconnectingWebSocket(wsUri, null, {debug: false, reconnectInterval: 3000});
+	$('#chatroom').val('');
+	$('#chatroom')[0].focus();
 	
 	var output = $('#output')[0];  
 	websocket.onopen = function(evt) { 
 	}
 	websocket.onclose = function(evt) {
-		$scope.rejoin(param);
 		writeMsg("passed out...");
 	}; 
 	websocket.onmessage = function(evt) { 
@@ -37,9 +39,10 @@ angular.module('chatroomApp')
 		chatroom: $scope.chatroom,
 		username: $scope.username
 	}
-	$scope.rejoin(param);
-	websocket.send(JSON.stringify(param));
-	websocket.close();
+	if(websocket) {
+		websocket.send(JSON.stringify(param));
+		websocket.close();
+	}
 	$state.go('chatRooms');
   }  
   
@@ -50,7 +53,7 @@ angular.module('chatroomApp')
 		username: $scope.username,
 		text: $scope.text
 	};
-	$scope.rejoin(param);
+	$('#chatroom').val('');
 	websocket.send(JSON.stringify(param));
   } 
   
@@ -58,21 +61,13 @@ angular.module('chatroomApp')
 	  $('#output').text('')  
   }
   
-  $scope.rejoin = function(param) {
-	if (!websocket || websocket.readyState != 1) {
-		writeMsg("try to rejoin!");
-		param.type = 'join';
-		var wsUri = config.ws_url + "/chatroom/chat/" + JSON.stringify(param);
-		websocket = new WebSocket(wsUri);
-	}
-  }    
 });
 
 function onMessage(evt) { 
 	writeMsg('<span style="color: blue;"> >: ' + evt.data+'</span>'); 
 }  
 function onError(evt) { 
-	writeMsg('<span style="color: red;">ERROR:</span> ' + evt.data); 
+//	writeMsg('<span style="color: red;">ERROR:</span> ' + evt.data); 
 }  
 function doSend(message) { 
 	var param = {

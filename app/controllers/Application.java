@@ -111,4 +111,11 @@ public class Application extends Controller {
     }
   }
 
+  /**
+   * for binary websocket frames
+   */
+  public static WebSocket<byte[]> chat2(final String params) {
+    return null;
+  }
+
 }
