@@ -29,8 +29,8 @@ elif [ $1 == 'start' ]
 then
 	echo '3 : cd '$RUN_BASE
 	cd $RUN_BASE
-	#$PLAY start -Dhttp.port=9000 & 
-	.$RUN_BASE/target/start -Dconfig.resource=stage.conf -Dhttp.port=9000 &
+	$PLAY start -Dhttp.port=9000 & 
+	#.$RUN_BASE/target/start -Dconfig.resource=stage.conf -Dhttp.port=9000 &
 else
 	echo 'else'
 fi
