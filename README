@@ -1,20 +1,34 @@
 This is your new Play application
 =====================================
 
-git clone https://github.com/doohee323/tz.chatroom.git
+http://54.166.26.82:9000
 
-cd tz.chatroom/public
+ㅇ function
+	- Websocket.io with play!
+	- angular.js
+	- Redis for storage and pub/sub
+	- reconnecting-websocket.min.js
+	- simple free memory check (/tz.chatroom/conf/application.conf tz.maxMemory=1000)
+	
+ㅇ install
+	git clone https://github.com/doohee323/tz.chatroom.git
+	cd tz.chatroom/public
+	bower install
+ 
+ㅇ start for local env.
+	cd tz.chatroom
+	play clean compile stage
+	play start -Dhttp.port=9000
 
-bower install
+ㅇ start for production 
+	cd tz.chatroom
+	play clean compile stage
+	cd tz.chatroom
+	play clean dist
+	tz.chatroom/dist> unzip tz_chatroom-1.0-SNAPSHOT.zip
+	tz.chatroom/dist> cd tz_chatroom-1.0-SNAPSHOT
+	chmod 777 start
+	./start -Xms512M -Xmx1024m &
 
-cd tz.chatroom
-
-play clean compile stage
-
-play start -Dhttp.port=9000
-
-
-
-
-
+# -javaagent:/home/ubuntu/newrelic/newrelic.jar -Dconfig.resource=prod.conf -Dlogger.file=/home/ubuntu/tz.chatroom/prod-logger.xml 
 
