@@ -121,18 +121,15 @@ public class ChatRoom {
             if (j.sismember(jmembers, username)) {
 //              ChatRoom.remoteMessage(channel, "This username is already used!");
 //              Logger.debug("This username is already used!" + jmembers);
-              members.put(jmembers, channel);
-              j.sadd(jmembers, username);
-              String msg = ipaddr + " joined the party!(" + username + ")";
-              Logger.debug("join again: " + msg);
-              ChatRoom.broadcast(ROOT + chatroom, msg);
-            } else {
-              members.put(jmembers, channel);
-              j.sadd(jmembers, username);
-              String msg = ipaddr + " joined the party!(" + username + ")";
-              Logger.debug("join: " + msg);
-              ChatRoom.broadcast(ROOT + chatroom, msg);
             }
+            members.put(jmembers, channel);
+            j.sadd(jmembers, username);
+            String msg = ipaddr + " joined the party!(" + username + ")";
+            Logger.debug("join again: " + msg);
+            ObjectNode event = Json.newObject();
+            event.put("type", "join");
+            event.put("text", msg);
+            ChatRoom.broadcast(ROOT + chatroom, event.toString());
           }
         }
       } else if (type.equals("quit")) {
@@ -142,7 +139,10 @@ public class ChatRoom {
         String ipaddr = json.has("ipaddr") ? json.get("ipaddr").asText() : "";
         String msg = ipaddr + " passed out...(" + username + ")";
         Logger.debug("quit: " + msg);
-        ChatRoom.broadcast(ROOT + chatroom, msg);
+        ObjectNode event = Json.newObject();
+        event.put("type", "quit");
+        event.put("text", msg);
+        ChatRoom.broadcast(ROOT + chatroom, event.toString());
       } else if (type.equals("talk")) {
         ChatRoom.broadcast(ROOT + chatroom, text);
       }

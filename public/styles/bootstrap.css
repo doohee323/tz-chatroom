@@ -6201,8 +6201,9 @@ button.close {
   }
 }
 
-#output {
-    height: 340px;
+.output {
+    height: 190px;
+    width: 100%;
     float: left;
     overflow: auto;
     overflow-x: hidden;

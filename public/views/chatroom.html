@@ -8,7 +8,7 @@
                     <h3>Chat Room List</h3>
                 </div>
                 <div class="panel-body" >
-                    <ul class="media-list" ng-repeat="room in chatroom">
+                    <ul class="media-list" ng-repeat="room in chatrooms">
                     <li class="media">
                        <div class="col-sm-1">
                            <a class="pull-left" ng-click="join(room)" style="cursor: pointer;">
@@ -30,19 +30,18 @@
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input id='chatroom' ng-keypress="($event.which === 13)?insert():0" 
+                        <input ng-model="chatroom" id='chatroom' ng-keypress="($event.which === 13)?insert():0" 
                         	type="text" class="form-control" placeholder="Input new chat room." />
                         <span class="input-group-btn">
                             <button class="btn btn-info" type="button" ng-click="insert()">Make</button>
                         </span>
+                    </div>
+                    <div class="input-group" style="width:100%">
+                        <div id="output2" class="output">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div class="footer">
-  <div id="output"></div>
-</div>
-

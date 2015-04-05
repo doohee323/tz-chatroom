@@ -13,7 +13,7 @@ var websocket;
                 <div class="panel-body">
                     <ul class="media-list">
                     <li class="media">
-                        <div id="output">
+                        <div id="output" class="output">
                         </div>
                     </li>
                 </div>
@@ -28,15 +28,20 @@ var websocket;
                         </span>
                     </div>
                     <div class="input-group">
-                        <input ng-model="text" id='chatroom'  ng-keypress="($event.which === 13)?talk():0" 
+                        <input ng-model="text" id='text'  ng-keypress="($event.which === 13)?talk():0" 
                         	type="text" class="form-control" placeholder="Input text." />
                         <span class="input-group-btn">
                             <button class="btn btn-info" type="button" ng-click="talk()">Send</button>
                         </span>
                     </div>
+                    <div class="input-group" style="width:100%">
+                        <div id="output2" class="output">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+		<div>{{msg}}</div>
 </div>
 

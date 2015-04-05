@@ -7,8 +7,23 @@ angular.module('chatroomApp')
 	$scope.chatroom = $stateParams.chatroom;
   }  
   
+  $scope.valiate = function() {
+	if(!$scope.chatroom) {
+		writeLog('Chat room is null!', true);
+		$('#chatroom')[0].focus();
+		return false;
+	}
+	if(!$scope.username) {
+		writeLog('User name is null!', true);
+		$('#username')[0].focus();
+		return false;
+	}
+	return true;
+  }
+  
   var wsUri;
   $scope.join = function() {
+	if(!$scope.valiate()) return;
 	var param = {
 		type: 'join',
 		chatroom: $scope.chatroom,
@@ -16,14 +31,15 @@ angular.module('chatroomApp')
 	}
 	wsUri = config.ws_url + "/chatroom/chat/" + JSON.stringify(param);
 	websocket = new ReconnectingWebSocket(wsUri, null, {debug: false, reconnectInterval: 3000});
-	$('#chatroom').val('');
-	$('#chatroom')[0].focus();
+	$scope.text = '';
+	$('#text')[0].focus();
 	
 	var output = $('#output')[0];  
+	var output2 = $('#output2')[0];  
 	websocket.onopen = function(evt) { 
 	}
 	websocket.onclose = function(evt) {
-		writeMsg("passed out...");
+		writeMsg("{passed out...}");
 	}; 
 	websocket.onmessage = function(evt) { 
 		onMessage(evt) 
@@ -47,27 +63,34 @@ angular.module('chatroomApp')
   }  
   
   $scope.talk = function() {
+	if(!$scope.valiate()) return;
+	if(!$scope.text) {
+		writeLog('Text is null!', true);
+		$('#text')[0].focus();
+		return false;
+	}
 	var param = {
 		type: 'talk',
 		chatroom: $scope.chatroom,
 		username: $scope.username,
 		text: $scope.text
 	};
-	$('#chatroom').val('');
+	$scope.text = '';
 	websocket.send(JSON.stringify(param));
   } 
   
   $scope.clear = function() {
 	  $('#output').text('')  
+	  $('#output2').text('')  
   }
   
 });
 
 function onMessage(evt) { 
-	writeMsg('<span style="color: blue;"> >: ' + evt.data+'</span>'); 
+	writeMsg(evt.data); 
 }  
 function onError(evt) { 
-//	writeMsg('<span style="color: red;">ERROR:</span> ' + evt.data); 
+	writeMsg(evt.data); 
 }  
 function doSend(message) { 
 	var param = {
@@ -77,10 +100,29 @@ function doSend(message) {
 	};
 	websocket.send(JSON.stringify(param)); 
 }  
-function writeMsg(message) { 
+function writeMsg(input) {
+	var json = JSON.parse(input);
+	var msg = '<span style="color: blue;"> > ' + json.text + '</span>';
 	var pre = document.createElement("p"); 
 	pre.style.wordWrap = "break-word"; 
-	pre.innerHTML = message;
+	pre.innerHTML = msg;
 	$('#output')[0].appendChild(pre); 
+
+	writeLog(JSON.stringify(json));
+} 
+
+function writeLog(input, err) {
+	if(config.debug) {
+		var msg;
+		if(err) {
+			msg = '<span style="color: red;">ERROR > ' + input + '</span><br>';
+		} else {
+			msg = '<span style="color: blue;"> > ' + input + '</span><br>';
+		}
+		var pre2 = document.createElement("p2"); 
+		pre2.style.wordWrap = "break-word"; 
+		pre2.innerHTML = msg;
+		$('#output2')[0].appendChild(pre2); 
+	}
 } 
 
