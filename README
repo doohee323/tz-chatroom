@@ -10,6 +10,22 @@ http://54.166.26.82:9000
 	- reconnecting-websocket.min.js
 	- simple free memory check (/tz.chatroom/conf/application.conf tz.maxMemory=1000)
 	
+ㅇ configuration
+	- play!
+		- redis: /tz.chatroom/conf/application.conf
+		 
+			redis.url="~~~"
+		
+	- angular
+		- websocket: /tz.chatroom/public/scripts/app.js
+		 
+			var config = {
+				debug: true,		-> UI debug console
+			//	api_url:'http://localhost:9000',
+			//	ws_url:'ws://localhost:9000'
+				api_url:'http://54.166.26.82:9000',
+				ws_url:'ws://54.166.26.82:9000'
+	
 ㅇ install
 	git clone https://github.com/doohee323/tz.chatroom.git
 	cd tz.chatroom/public
