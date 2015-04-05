@@ -19,7 +19,8 @@ then
 	cd $BUILD_BASE
 	git pull origin master
 	echo '1 : compile '$PLAY $1
-	$PLAY clean compile stage
+	#$PLAY clean compile stage
+	$PLAY compile stage
 elif [ $1 == 'stop' ]
 then
 	echo '2 : cd '$RUN_BASE
