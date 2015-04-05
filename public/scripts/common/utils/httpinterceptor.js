@@ -13,7 +13,7 @@
  ```
  */
 
-angular.module('locketAdminUtils',[])
+angular.module('httpIntercepter',[])
   .factory('httpinterceptor', ['$q', '$rootScope', 'msgconst', 'config', function ($q, $rootScope, msgconst, config) {
 
     var started = function(req) {

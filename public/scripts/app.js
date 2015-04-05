@@ -10,7 +10,9 @@
  */
 
 var config = {
-	api_url:'http://localhost:9000'
+	api_url:'http://localhost:9000',
+	ws_url:'ws://localhost:9000'
+//	api_url:'http://52.0.156.206:9000'
 };
  
 angular
@@ -21,7 +23,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'locketAdminUtils'
+    'httpIntercepter'
   ]).constant('config', config)
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$provide',
   function ($stateProvider, $urlRouterProvider, $httpProvider, $provide) {

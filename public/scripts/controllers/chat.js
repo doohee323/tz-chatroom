@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chatroomApp')
-.controller('ChatCtrl', function($scope, $http, $state, $stateParams, ChatService) {
+.controller('ChatCtrl', function($scope, $http, $state, $stateParams, config, ChatService) {
 
   $scope.init = function() {
 	$scope.chatroom = $stateParams.chatroom;
@@ -13,7 +13,7 @@ angular.module('chatroomApp')
 		chatroom: $scope.chatroom,
 		username: $scope.username
 	}
-	var wsUri = "ws://localhost:9000/chatroom/chat/" + JSON.stringify(param);
+	var wsUri = config.ws_url + "/chatroom/chat/" + JSON.stringify(param);
 	websocket = new WebSocket(wsUri);
 	
 	var output = $('#output')[0];  
