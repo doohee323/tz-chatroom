@@ -1,4 +1,20 @@
 This is your new Play application
 =====================================
 
-This file will be packaged with your application, when using `play dist`.
+git clone https://github.com/doohee323/tz.chatroom.git
+
+cd tz.chatroom/public
+
+bower install
+
+cd tz.chatroom
+
+play clean compile stage
+
+play start -Dhttp.port=9000
+
+
+
+
+
+

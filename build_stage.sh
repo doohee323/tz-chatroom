@@ -1,36 +1,36 @@
 #!/bin/bash
 
-export PLAY_HOME=/data3/play-2.2.0
-export PATH=$PATH:$PLAY_HOME
-export PLAY=$PLAY_HOME/play
+export PATH=$PATH:/data3/play-2.2.2-RC2
+export PLAY=/home/ubuntu/play-2.1.3/play
 
 # for build server
 export JENKINS_PROJECT=tz.chatroom
-export BUILD_BASE='/data3/workspace/tz.chatroom'
+export BUILD_BASE='/home/ubuntu/.jenkins/jobs/'$JENKINS_PROJECT'/workspace'
 
 # for staging server
-export RUN_BASE='/data3/workspace/tz.chatroom'
+export RUN_BASE='/home/ubuntu/tz.chatroom'
 
 echo '1nd args : '$1
-
+echo '$PLAY : '$PLAY
+echo '$RUN_BASE : '$RUN_BASE
+ 
 if [ $1 == 'compile' ]
 then
- echo '1 : cd $BUILD_BASE'
- cd $BUILD_BASE
- echo '1 : compile $PLAY $1'
- $PLAY $1
+	echo '1 : cd '$BUILD_BASE
+	cd $BUILD_BASE
+	echo '1 : compile '$PLAY $1
+	$PLAY clean compile stage
 elif [ $1 == 'stop' ]
 then
- echo '2 : $PLAY stop'
- cd $RUN_BASE
- $PLAY stop
+	echo '2 : cd '$RUN_BASE
+	cd $RUN_BASE
+	$PLAY stop
 elif [ $1 == 'start' ]
 then
- echo '/data3/play-2.2.0/play run &'
- echo 'cd $RUN_BASE'
- echo '$PLAY run'
- cd $RUN_BASE
- $PLAY start
+	echo '3 : cd '$RUN_BASE
+	cd $RUN_BASE
+	#$PLAY start -Dhttp.port=9000 & 
+	.$RUN_BASE/target/start -Dconfig.resource=stage.conf -Dhttp.port=9000 &
 else
 	echo 'else'
 fi
