@@ -37,8 +37,10 @@ angular.module('chatroomApp')
 		chatroom: $scope.chatroom,
 		username: $scope.username
 	}
+	$scope.rejoin(param);
 	websocket.send(JSON.stringify(param));
 	websocket.close();
+	$state.go('chatRooms');
   }  
   
   $scope.talk = function() {
@@ -57,7 +59,7 @@ angular.module('chatroomApp')
   }
   
   $scope.rejoin = function(param) {
-	if (websocket.readyState != 1) {
+	if (!websocket || websocket.readyState != 1) {
 		writeMsg("try to rejoin!");
 		param.type = 'join';
 		var wsUri = config.ws_url + "/chatroom/chat/" + JSON.stringify(param);
