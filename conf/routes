@@ -7,7 +7,7 @@
 
 GET     /chatroom/join/:username  				controllers.Application.join(username)
 
-GET     /chatrooms/:page                  controllers.Application.chatRooms(page)
+GET     /chatrooms                  			controllers.Application.chatRooms()
 POST		/chatroom													controllers.Application.insertChatRoom()
 DELETE	/chatroom													controllers.Application.deleteChatRoom()
 GET     /chatroom/:chatroom               controllers.Application.chatRoom(chatroom)

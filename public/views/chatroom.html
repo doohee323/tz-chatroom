@@ -16,7 +16,7 @@
 	</div>
 	
 </div>
-<div data-ng-init="retrieve( 1 )">
+<div data-ng-init="retrieve()">
 	<h2>Chat Room List</h2>
 	<h3>Chat Room Name:</h3>
   <input id='chatroom' type='text' style='width: 20%;margin-left: 15px;'/>
@@ -29,5 +29,6 @@
       </a>
        <i ng-click="delete(room, $index)" style="cursor: pointer;">X</i>
    </div>
+	<div id="output"></div>
 </div>
 

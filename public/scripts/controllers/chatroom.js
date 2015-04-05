@@ -2,29 +2,9 @@
 
 angular.module('chatroomApp')
 .controller('ChatRoomCtrl', function($scope, $http, $state, ChatroomService) {
-
-  var currentRow = 1;
-  $scope.next = function(id) {
-    if(!id) {
-    	id = currentRow + 1;
-    	currentRow = id;
-    }
-	$scope.retrieve(id);
-  }
-
-  $scope.prev = function(id) {
-    if(!id) {
-    	id = currentRow - 1;
-    	currentRow = id;
-    }
-	$scope.retrieve(id);
-  }
   
-  $scope.retrieve = function(id) {
-	if(!id) {
-		id = currentRow;
-	}
-	ChatroomService.L.get({'page':id}, function(data) {
+  $scope.retrieve = function() {
+	ChatroomService.L.get({}, function(data) {
 		if(data.result) {
 			$scope.chatroom = data.result;
 		}

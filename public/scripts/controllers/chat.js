@@ -20,6 +20,7 @@ angular.module('chatroomApp')
 	websocket.onopen = function(evt) { 
 	}
 	websocket.onclose = function(evt) {
+		$scope.rejoin(param);
 		writeMsg("passed out...");
 	}; 
 	websocket.onmessage = function(evt) { 
@@ -47,12 +48,22 @@ angular.module('chatroomApp')
 		username: $scope.username,
 		text: $scope.text
 	};
+	$scope.rejoin(param);
 	websocket.send(JSON.stringify(param));
   } 
   
   $scope.clear = function() {
 	  $('#output').text('')  
   }
+  
+  $scope.rejoin = function(param) {
+	if (websocket.readyState != 1) {
+		writeMsg("try to rejoin!");
+		param.type = 'join';
+		var wsUri = config.ws_url + "/chatroom/chat/" + JSON.stringify(param);
+		websocket = new WebSocket(wsUri);
+	}
+  }    
 });
 
 function onMessage(evt) { 
@@ -62,7 +73,6 @@ function onError(evt) {
 	writeMsg('<span style="color: red;">ERROR:</span> ' + evt.data); 
 }  
 function doSend(message) { 
-//	writeMsg("SENT: " + message);
 	var param = {
 		chatroom: $('#chatroom').text(),
 		username: $('#username').val(),

@@ -13,12 +13,16 @@ import play.libs.F.Callback0;
 import play.libs.Json;
 import play.mvc.WebSocket;
 import redis.clients.jedis.Jedis;
+import services.ChatRoomManager;
 import services.RedisManager;
+import utils.AppUtil;
 
 /**
  */
 public class ChatRoom {
 
+  private static org.slf4j.Logger Logger = org.slf4j.LoggerFactory.getLogger(ChatRoom.class);
+  
   public static final String ROOT = "topzone:";
   public static final String CHATROOM = "chatroom:";
   public static final String CHANNEL = "messages:";
@@ -26,6 +30,7 @@ public class ChatRoom {
       new HashMap<String, WebSocket.Out<String>>();
 
   /**
+   * join to websocket session
    */
   public void join(final String params, final String username, WebSocket.In<String> in,
       WebSocket.Out<String> out) throws Exception {
@@ -39,10 +44,15 @@ public class ChatRoom {
 
         Jedis j = RedisManager.getInstance().getJedis();
         try {
+          if (ChatRoomManager.chatrooms.isEmpty()) {
+            ChatRoomManager.getChatRooms();
+          }
           JsonNode json = Json.parse(event);
           String jchannel = ROOT + json.get("chatroom").asText() + ":" + CHANNEL;
+          Logger.debug("joined to " + jchannel);
           j.publish(jchannel, json.toString());
         } catch (Exception e) {
+          Logger.error(e.getMessage());
           e.printStackTrace();
         } finally {
           RedisManager.getInstance().returnJedis(j);
@@ -60,17 +70,25 @@ public class ChatRoom {
           event.put("chatroom", json.get("chatroom").asText());
           onReceive(Json.parse(event.toString()), null);
         } catch (Exception e) {
+          Logger.error(e.getMessage());
           e.printStackTrace();
         }
       }
     });
   }
 
+  /**
+   * write to a channel
+   */
   public static void remoteMessage(WebSocket.Out<String> channel, String message) {
     channel.write(message);
   }
 
+  /**
+   * broadcast to all channels in a chatroom
+   */
   public static void broadcast(String chatroom, String message) {
+    Logger.debug("broadcast to " + chatroom + ": " + message);
     Set<String> set = members.keySet();
     Iterator<String> iter = set.iterator();
     while (iter.hasNext()) {
@@ -84,6 +102,9 @@ public class ChatRoom {
     }
   }
 
+  /**
+   * handling according to the payload
+   */
   public void onReceive(JsonNode json, WebSocket.Out<String> channel) throws Exception {
     Jedis j = RedisManager.getInstance().getJedis();
     try {
@@ -92,17 +113,21 @@ public class ChatRoom {
       String username = json.has("username") ? json.get("username").asText() : null;
       String text = json.has("text") ? json.get("text").asText() : null;
 
-      if (type.equals("join")) {
-        if (username != null) {
-          String jmembers = ROOT + chatroom + ":" + username;
-          if (j.sismember(jmembers, username)) {
-            ChatRoom.remoteMessage(channel, "This username is already used!");
-          } else {
-            members.put(jmembers, channel);
-            j.sadd(jmembers, username);
-            String ipaddr = json.has("ipaddr") ? json.get("ipaddr").asText() : "";
-            String msg = ipaddr + " joined the party!(" + username + ")";
-            ChatRoom.broadcast(ROOT + chatroom, msg);
+      if (type.equals("join") || type.equals("rejoin")) {
+        if (AppUtil.isEnoughMemory()) {
+          if (username != null) {
+            String jmembers = ROOT + chatroom + ":" + username;
+            if (j.sismember(jmembers, username)) {
+              ChatRoom.remoteMessage(channel, "This username is already used!");
+              Logger.debug("This username is already used!" + jmembers);
+            } else {
+              members.put(jmembers, channel);
+              j.sadd(jmembers, username);
+              String ipaddr = json.has("ipaddr") ? json.get("ipaddr").asText() : "";
+              String msg = ipaddr + " joined the party!(" + username + ")";
+              Logger.debug("join: " + msg);
+              ChatRoom.broadcast(ROOT + chatroom, msg);
+            }
           }
         }
       } else if (type.equals("quit")) {
@@ -111,11 +136,13 @@ public class ChatRoom {
         j.srem(jmembers, username);
         String ipaddr = json.has("ipaddr") ? json.get("ipaddr").asText() : "";
         String msg = ipaddr + " passed out...(" + username + ")";
+        Logger.debug("quit: " + msg);
         ChatRoom.broadcast(ROOT + chatroom, msg);
       } else if (type.equals("talk")) {
         ChatRoom.broadcast(ROOT + chatroom, text);
       }
     } catch (Exception e) {
+      Logger.error(e.getMessage());
       e.printStackTrace();
     } finally {
       RedisManager.getInstance().returnJedis(j);
