@@ -17,6 +17,7 @@ if [ $1 == 'compile' ]
 then
 	echo '1 : cd '$BUILD_BASE
 	cd $BUILD_BASE
+	git pull origin master
 	echo '1 : compile '$PLAY $1
 	$PLAY clean compile stage
 elif [ $1 == 'stop' ]
