@@ -13,7 +13,7 @@ var config = {
 //	api_url:'http://localhost:9000',
 //	ws_url:'ws://localhost:9000'
 	api_url:'http://54.163.92.94:3000',
-	WS_URL:'WS://54.163.92.94:3000'
+	ws_url:'WS://54.163.92.94:3000'
 };
  
 angular
