@@ -1,11 +1,10 @@
 #!/bin/bash
 
-export PATH=$PATH:/data3/play-2.2.2-RC2
-export PLAY=/home/ubuntu/play-2.1.3/play
+export PLAY=/usr/local/sbin/play
 
 # for build server
 export JENKINS_PROJECT=tz.chatroom
-export BUILD_BASE='/home/ubuntu/.jenkins/jobs/'$JENKINS_PROJECT'/workspace'
+export BUILD_BASE='/home/ubuntu/tz.chatroom'
 
 # for staging server
 export RUN_BASE='/home/ubuntu/tz.chatroom'
