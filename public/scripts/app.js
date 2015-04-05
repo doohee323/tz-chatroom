@@ -10,10 +10,10 @@
  */
 
 var config = {
-	api_url:'http://localhost:9000',
-	ws_url:'ws://localhost:9000'
-//	api_url:'http://54.163.92.94:9000',
-//	ws_url:'ws://54.163.92.94:9000'
+//	api_url:'http://localhost:9000',
+//	ws_url:'ws://localhost:9000'
+	api_url:'http://54.163.92.94:9000',
+	ws_url:'ws://54.163.92.94:9000'
 };
  
 angular
