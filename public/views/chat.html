@@ -1,40 +1,40 @@
-
 <script>
 var websocket; 
 </script>
-	
-<div ng-controller="ChatCtrl">
 
-	<div style="margin-left: 35px;">
-		<ul id="nav">
-			<li style='width: 20%;'><a ui-sref="chatRooms">ChatRooms</a></li>
-		</ul>
-	</div>
-	<div style="position: absolute;right: 0px;">
-		<a ng-click="prev()" title="next list" style="cursor: pointer;">
-			<img src="images/prev.png" style="margin-right:0px;">
-		</a>
-		<a ng-click="next()" title="next list" style="cursor: pointer;">
-			<img src="images/next.png" style="margin-right:0px;">
-		</a>
-	</div>
-
+<div class="container" ng-controller="ChatCtrl">
+    <div class="row " data-ng-init="init()">
+        <br />
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3><p id="chatroom" ui-sref="chatRooms" style="cursor: pointer;">{{chatroom}}</p></h2>
+                </div>
+                <div class="panel-body">
+                    <ul class="media-list">
+                    <li class="media">
+                        <div id="output">
+                        </div>
+                    </li>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input ng-model="username" id="username" type='text' class="form-control" placeholder="Input user name" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="button" ng-click="join()">Join</button>
+                            <button class="btn btn-info" type="button" ng-click="quit()">Quit</button>
+                            <button class="btn btn-info" type="button" ng-click="clear()">Clear</button>
+                        </span>
+                    </div>
+                    <div class="input-group">
+                        <input ng-model="text" type="text" id='chatroom' class="form-control" placeholder="Input text" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="button" ng-click="talk()">Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div data-ng-init="init()">
-	<h2>Chat room: <div id="chatroom">{{chatroom}}</div></h2>
-	<h3>User Name:</h3>
-  <input ng-model="username" id="username" type='text' style='width: 20%;margin-left: 15px;'/>
-	<a ng-click="join()" title="" style="cursor: pointer;">Join</a>
-	<a ng-click="quit()" title="" style="cursor: pointer;">Quit</a>
-	<a ng-click="clear()" title="" style="cursor: pointer;">Clear</a>
-  <input ng-model="text" type='text' style='width: 90%;margin-left: 15px;'/>
-	<a ng-click="talk()" title="" style="cursor: pointer;">Send</a>
-	<div id="output"></div>
-</div>
-
-
-
-
-
-
 

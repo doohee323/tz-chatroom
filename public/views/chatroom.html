@@ -1,34 +1,47 @@
-	
-<div ng-controller="ChatRoomCtrl">
 
-	<div style="margin-left: 35px;">
-		<ul id="nav">
-			<li style='width: 20%;'><a ui-sref="chatRooms">ChatRooms</a></li>
-		</ul>
-	</div>
-	<div style="position: absolute;right: 0px;">
-		<a ng-click="prev()" title="next list" style="cursor: pointer;">
-			<img src="images/prev.png" style="margin-right:0px;">
-		</a>
-		<a ng-click="next()" title="next list" style="cursor: pointer;">
-			<img src="images/next.png" style="margin-right:0px;">
-		</a>
-	</div>
-	
+<div class="container">
+    <div class="row " data-ng-init="retrieve()">
+        <br />
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3>Chat Room List</h3>
+                </div>
+                <div class="panel-body" >
+                    <ul class="media-list" ng-repeat="room in chatroom">
+                    <li class="media">
+                       <div class="col-sm-4">
+                           <a class="pull-left" ng-click="join(room)" style="cursor: pointer;">
+                               <img class="media-object img-circle " style="width:30px;height:30px;" src="images/room.png" />
+                           </a>
+                       </div>
+                       <div class="col-sm-6">
+                           <a class="pull-left" ng-click="join(room)" style="cursor: pointer;width:350px">
+                               {{room.name}}
+                           </a>
+                       </div>
+                       <div class="col-sm-2">
+                           <a class="pull-left" ng-click="delete(room, $index)" style="cursor: pointer;width:30px">
+                               <img class="media-object img-circle " style="width:30px;height:30px;" src="images/delete.png" />
+                           </a>
+                       </div>
+                    </li>
+                  </ul> 	
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input type="text" id='chatroom' class="form-control" placeholder="Input new Chat Room:" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info" type="button" ng-click="insert()">Make</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div data-ng-init="retrieve()">
-	<h2>Chat Room List</h2>
-	<h3>Chat Room Name:</h3>
-  <input id='chatroom' type='text' style='width: 20%;margin-left: 15px;'/>
-	<a ng-click="insert()" title="" style="cursor: pointer;">
-		Add
-	</a>
-   <div ng-repeat="room in chatroom">
-   		<a ng-click="join(room)" title="next list" style="cursor: pointer;">
-       {{room.name}}
-      </a>
-       <i ng-click="delete(room, $index)" style="cursor: pointer;">X</i>
-   </div>
-	<div id="output"></div>
+
+<div class="footer">
+  <div id="output"></div>
 </div>
 

@@ -1,27 +1,19 @@
 <!doctype html>
-<html class="no-js" style="overflow-y:hidden">
+<html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title>conconrdchurch.me</title>
+    <title>CHAT ROOM</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-play-app" content="app-id=com.locket.matterhorn">
+    <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <!-- build:css(.) styles/style.css -->
-    <link rel="stylesheet" href="styles/style.css">
+    <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.scss">
     <!-- endbuild -->
-		<!----webfonts---->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-		<!----//webfonts---->
-		<!--script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-		</script-->
+    <link href="styles/bootstrap.css" rel="stylesheet" />
   </head>
   <body ng-app="chatroomApp" style="margin:0px">
     <!--[if lt IE 7]>
@@ -30,13 +22,17 @@
 
     <!-- Add your site or application content here -->
     <div ui-view id="ui-view"></div>
+    
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-    <!-- build:js(.) scripts/oldieshim.js -->
-    <!--[if lt IE 9]>
-    <script src="bower_components/es5-shim/es5-shim.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <![endif]-->
-    <!-- endbuild -->
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
