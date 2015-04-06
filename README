@@ -42,7 +42,7 @@ http://54.166.26.82:9000
 	chmod 777 start
 	./start -Xms512M -Xmx1024m &
 	
-# cd /home/ubuntu/tz.chatroom/dist/tz_chatroom-1.0-SNAPSHOT
+# build.sh compile
 # ./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar &
 # ./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar -Dconfig.resource=prod.conf -Dlogger.file=/home/ubuntu/tz.chatroom/prod-logger.xml & 
 
