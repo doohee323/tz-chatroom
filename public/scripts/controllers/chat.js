@@ -29,7 +29,9 @@ angular.module('chatroomApp')
 		chatroom: $scope.chatroom,
 		username: $scope.username
 	}
-	wsUri = config.ws_url + "/chatroom/chat/" + JSON.stringify(param);
+	var host = document.location.origin;
+	host = host.replace('http', 'ws');
+	wsUri = host + "/chatroom/chat/" + JSON.stringify(param);
 	websocket = new ReconnectingWebSocket(wsUri, null, {debug: false, reconnectInterval: 3000});
 	$scope.text = '';
 	$('#text')[0].focus();

@@ -11,10 +11,6 @@
 
 var config = {
 	debug: true,
-//	api_url:'http://localhost:9000',
-//	ws_url:'ws://localhost:9000'
-	api_url:'http://54.166.26.82:9000',
-	ws_url:'ws://54.166.26.82:9000'
 };
  
 angular

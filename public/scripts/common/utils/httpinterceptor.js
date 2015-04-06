@@ -19,9 +19,6 @@ angular.module('httpIntercepter',[])
     var started = function(req) {
       if(req) {
         $rootScope.running = true;
-        if(!config.api_url) {
-	        config.api_url = document.location.origin;
-        }
       }
     };
     
@@ -36,11 +33,7 @@ angular.module('httpIntercepter',[])
         started(req);
 				if(req.url.trim().endsWith('html')){
 				} else {
-					req.url = config.api_url + req.url;
-		      req.headers = req.headers || {};
-		      //if (localStorage.getItem('token') && localStorage.getItem('token') != "undefined") {
-		      //  req.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
-		      //}
+					req.headers = req.headers || {};
 				}      
         return req || $q.when(req);
       },
@@ -70,7 +63,7 @@ angular.module('httpIntercepter',[])
           if(response.req) {
 	          msg += "HTTP: " + response.req.method + " on " + response.req.url + " failed.";
           } else {
-	          msg += "HTTP: " + response.config.method + " on " + config.api_url + " failed.";
+	          msg += "HTTP: " + response.config.method + " failed.";
           }
         }
         console.error('[' + title + ', HTTP:' + status + '], message=' + msg);

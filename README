@@ -21,10 +21,6 @@ http://54.166.26.82:9000
 		 
 			var config = {
 				debug: true,		-> UI debug console
-			//	api_url:'http://localhost:9000',
-			//	ws_url:'ws://localhost:9000'
-				api_url:'http://54.166.26.82:9000',
-				ws_url:'ws://54.166.26.82:9000'
 	
 ㅇ install
 	git clone https://github.com/doohee323/tz.chatroom.git
