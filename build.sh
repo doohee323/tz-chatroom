@@ -25,6 +25,7 @@ then
 	cd dist
 	unzip tz_chatroom-1.0-SNAPSHOT.zip
 	cd tz_chatroom-1.0-SNAPSHOT
+	chmod 777 start
 elif [ $1 == 'stop' ]
 then
 	echo '2 : cd '$RUN_BASE
