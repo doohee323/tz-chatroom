@@ -41,6 +41,17 @@ http://54.166.26.82:9000
 	tz.chatroom/dist> cd tz_chatroom-1.0-SNAPSHOT
 	chmod 777 start
 	./start -Xms512M -Xmx1024m &
+# ./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar -Dconfig.resource=prod.conf -Dlogger.file=/home/ubuntu/tz.chatroom/prod-logger.xml 
 
-# -javaagent:/home/ubuntu/newrelic/newrelic.jar -Dconfig.resource=prod.conf -Dlogger.file=/home/ubuntu/tz.chatroom/prod-logger.xml 
+ㅇ debugging with runscope
+	https://www.runscope.com/stream/p146veqmxldc
+
+ㅇ server monitoring with newrelic
+	https://rpm.newrelic.com/accounts/597359/applications/5584593
+	
+ㅇ performance test with jmeter
+	/tz.chatroom/conf/tz.chatroom.jmx
+	
+	
+	
 

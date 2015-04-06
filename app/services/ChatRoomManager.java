@@ -81,7 +81,8 @@ public class ChatRoomManager {
     try {
       String key = ChatRoom.ROOT + ChatRoom.CHATROOM + chatroom;
       Cancellable scheduler = chatroomSchedule.get(key);
-      scheduler.cancel();
+      if (scheduler != null)
+        scheduler.cancel();
       chatroomSchedule.remove(key);
       chatrooms.remove(key);
       String key2 = ChatRoom.ROOT + chatroom + ":*";
