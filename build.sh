@@ -22,7 +22,9 @@ then
 	#$PLAY clean compile stage
 	$PLAY compile stage
 	$PLAY clean dist
+	cd dist
 	unzip tz_chatroom-1.0-SNAPSHOT.zip
+	cd tz_chatroom-1.0-SNAPSHOT
 elif [ $1 == 'stop' ]
 then
 	echo '2 : cd '$RUN_BASE
