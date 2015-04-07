@@ -35,7 +35,8 @@ elif [ $1 == 'start' ]
 then
 	echo '3 : cd '$RUN_BASE
 	cd $RUN_BASE
-	$PLAY start -Dhttp.port=9000 & 
+	# $PLAY start -Dhttp.port=9000 &
+	./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar & 
 	#.$RUN_BASE/target/start -Dconfig.resource=stage.conf -Dhttp.port=9000 &
 else
 	echo 'else'
