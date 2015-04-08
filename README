@@ -17,16 +17,17 @@ http://54.166.26.82:9000
 			redis.url="~~~"
 		
 	- angular
-		- websocket: /tz.chatroom/public/scripts/app.js
+		- websocket: /tz.chatroom/web/scripts/app.js
 		 
 			var config = {
 				debug: true,		-> UI debug console
 	
 ㅇ install
 	git clone https://github.com/doohee323/tz.chatroom.git
-	cd tz.chatroom
+	cd tz.chatroom/web
 	npm install
 	bower install
+	grunt build
  
 ㅇ start for local env.
 	cd tz.chatroom
@@ -34,7 +35,7 @@ http://54.166.26.82:9000
 	play start -Dhttp.port=9000
 	
 	cf. grunt
-	cd tz.chatroom
+	cd tz.chatroom/web
 	grunt serve
 
 ㅇ start for production 
