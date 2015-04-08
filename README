@@ -24,13 +24,18 @@ http://54.166.26.82:9000
 	
 ㅇ install
 	git clone https://github.com/doohee323/tz.chatroom.git
-	cd tz.chatroom/public
+	cd tz.chatroom
+	npm install
 	bower install
  
 ㅇ start for local env.
 	cd tz.chatroom
 	play clean compile stage
 	play start -Dhttp.port=9000
+	
+	cf. grunt
+	cd tz.chatroom
+	grunt serve
 
 ㅇ start for production 
 	cd tz.chatroom
