@@ -1,16 +1,14 @@
 #!/bin/bash
 
-export PLAY=/usr/local/sbin/play
+#export PLAY=/usr/local/bin/play
 
 # for build server
-export JENKINS_PROJECT=tz-chatroom
-export BUILD_BASE='/home/ubuntu/tz-chatroom'
+export BUILD_BASE='/vagrant'
 
 # for staging server
-export RUN_BASE='/home/ubuntu/tz-chatroom'
+export RUN_BASE='/vagrant'
 
 echo '1nd args : '$1
-echo '$PLAY : '$PLAY
 echo '$RUN_BASE : '$RUN_BASE
  
 if [ $1 == 'compile' ]
@@ -18,10 +16,10 @@ then
 	echo '1 : cd '$BUILD_BASE
 	cd $BUILD_BASE
 	git pull origin master
-	echo '1 : compile '$PLAY $1
-	#$PLAY clean compile stage
-	$PLAY compile stage
-	$PLAY clean dist
+	echo '1 : compile 'play $1
+	#play clean compile stage
+	play compile stage
+	play clean dist
 	cd dist
 	unzip tz_chatroom-1.0-SNAPSHOT.zip
 	cd tz_chatroom-1.0-SNAPSHOT
@@ -30,14 +28,14 @@ elif [ $1 == 'stop' ]
 then
 	echo '2 : cd '$RUN_BASE
 	cd $RUN_BASE
-	$PLAY stop
+	play stop
 elif [ $1 == 'start' ]
 then
 	echo '3 : cd '$RUN_BASE
 	cd $RUN_BASE
-	# $PLAY start -Dhttp.port=9000 &
-	./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar & 
-	#.$RUN_BASE/target/start -Dconfig.resource=stage.conf -Dhttp.port=9000 &
+	# play start -Dhttp.port=9000 &
+	#./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar & 
+	./dist/tz_chatroom-1.0-SNAPSHOT/start -Dconfig.resource=application.conf -Dhttp.port=9000
 else
 	echo 'else'
 fi
