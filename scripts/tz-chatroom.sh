@@ -35,6 +35,7 @@ sudo apt-get install nodejs-legacy
 sudo apt-get install git -y
 sudo apt-get install unzip
 sudo npm install bower -g
+sudo npm install -g grunt-cli 
 
 sudo locale-gen UTF-8
 
@@ -78,6 +79,7 @@ bash build.sh compile
 cd $PROJ_DIR/web
 npm install
 bower install
+grunt build
 
 ### [open firewalls] ############################################################################################################
 ufw allow "Nginx Full"

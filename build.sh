@@ -35,7 +35,7 @@ then
 	cd $RUN_BASE
 	# play start -Dhttp.port=9000 &
 	#./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar & 
-	./dist/tz_chatroom-1.0-SNAPSHOT/start -Dconfig.resource=application.conf -Dhttp.port=9000
+	./dist/tz_chatroom-1.0-SNAPSHOT/start -Dconfig.resource=application.conf -Dhttp.port=9000 &
 else
 	echo 'else'
 fi

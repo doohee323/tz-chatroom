@@ -1,16 +1,33 @@
-This is your new Play application
-=====================================
+# Tz-Chat Room app
 
-http://54.166.26.82:9000
+http://chatroom.topzone.biz
 
-ㅇ function
+## function
 	- Websocket.io with play!
 	- angular.js
 	- Redis for storage and pub/sub
 	- reconnecting-websocket.min.js
 	- simple free memory check (/tz-chatroom/conf/application.conf tz.maxMemory=1000)
+
+install Tz-Chat app on vagrant
+
+## requirement in your pc
+```	
+	install vagrant
+	vagrant box add trusty https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box
 	
-ㅇ configuration
+	vi /etc/hosts
+	192.168.82.120     chatroom.topzone.biz
+	
+```
+
+## run vagrant
+```
+	cd ~/tz-chatroom
+	vagrant destroy -f && vagrant up
+```
+
+## configuration
 	- play!
 		- redis: /tz-chatroom/conf/application.conf
 		 
@@ -21,15 +38,18 @@ http://54.166.26.82:9000
 		 
 			var config = {
 				debug: true,		-> UI debug console
-	
-ㅇ install
+
+### build for local env.
+## install
+```
 	git clone https://github.com/doohee323/tz-chatroom.git
 	cd tz-chatroom/web
 	npm install
 	bower install
 	grunt build
- 
-ㅇ start for local env.
+```
+## start for local env.
+```
 	cd tz-chatroom
 	play clean compile stage
 	play start -Dhttp.port=9000
@@ -37,8 +57,10 @@ http://54.166.26.82:9000
 	cf. grunt
 	cd tz-chatroom/web
 	grunt serve
+```
 
-ㅇ start for production 
+## start for production 
+```
 	cd tz-chatroom
 	play clean compile stage
 	cd tz-chatroom
@@ -51,15 +73,20 @@ http://54.166.26.82:9000
 # build.sh compile
 # ./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar &
 # ./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar -Dconfig.resource=prod.conf -Dlogger.file=/home/ubuntu/tz-chatroom/prod-logger.xml & 
+```
 
-ㅇ debugging with runscope
+## etc
+```
+	- debugging with runscope
 	https://www.runscope.com/stream/p146veqmxldc
 
-ㅇ server monitoring with newrelic
+	- server monitoring with newrelic
 	https://rpm.newrelic.com/accounts/597359/applications/5584593
 	
-ㅇ performance test with jmeter
+	- performance test with jmeter
 	/tz-chatroom/conf/tz-chatroom.jmx
+```
+
 	
 	
 	

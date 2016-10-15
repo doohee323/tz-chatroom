@@ -3,7 +3,7 @@ dist
 .tmp
 .sass-cache
 app/bower_components
-public/bower_components
+public
 /logs
 /target
 /.target
