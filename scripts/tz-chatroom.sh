@@ -6,15 +6,17 @@ export SENV=$1
 
 export USER=vagrant  # for vagrant
 export PROJ_NAME=tz-chatroom
-export PROJ_DIR=/vagrant
+export PROJ_DIR=/tz-chatroom
 export NODE_ENV=development
-export SRC_DIR=/vagrant/resources  # for vagrant
 
 if [ "$SENV" = "aws" ]; then
 	USER=ubuntu
-	SRC_DIR=/home/ubuntu/tz-chatroom/resources
+	cd /
+	sudo git clone https://github.com/doohee323/tz-chatroom.git
+	sudo chown -Rf ubuntu:ubuntu /tz-chatroom
 fi
 
+export SRC_DIR=/tz-chatroom/resources
 export HOME_DIR=/home/$USER
 
 sudo sh -c "echo '' >> $HOME_DIR/.bashrc"
@@ -27,7 +29,7 @@ source $HOME_DIR/.bashrc
 sudo sh -c "echo '' >> /etc/hosts"
 sudo sh -c "echo '127.0.0.1  chatroom.topzone.biz' >> /etc/hosts"
 
-#sudo apt-get update
+sudo apt-get update
 
 sudo apt-get install openjdk-7-jdk curl -y
 sudo apt-get install npm -y
@@ -51,8 +53,8 @@ sudo ln -s /etc/nginx/sites-available/tz-chatroom.conf /etc/nginx/sites-enabled/
 sudo service nginx restart
 
 if [ "$SENV" = "aws" ]; then
-	sudo sed -i "s/\/vagrant\/web_apps/\/home\/ubuntu\/tz-chatroom\/web_apps/g" /etc/nginx/sites-available/default
-	sudo sed -i "s/\/vagrant\/web_apps/\/home\/ubuntu\/tz-chatroom-admin\/web_apps/g" /etc/nginx/sites-available/admin
+	sudo sed -i "s/\/tz-chatroom\/web_apps/\/home\/ubuntu\/tz-chatroom\/web_apps/g" /etc/nginx/sites-available/default
+	sudo sed -i "s/\/tz-chatroom\/web_apps/\/home\/ubuntu\/tz-chatroom-admin\/web_apps/g" /etc/nginx/sites-available/admin
 fi
 
 # curl http://127.0.0.1:80
@@ -72,6 +74,7 @@ redis-server &
 cd $HOME_DIR
 wget https://downloads.typesafe.com/play/2.1.3/play-2.1.3.zip
 unzip play-2.1.3.zip
+sudo chown -Rf vagrant:vagrant play-2.1.3
 cd $PROJ_DIR
 bash build.sh compile
 

@@ -1,4 +1,4 @@
-# Tz-Chat Room app
+# Tz-ChatRoom app
 
 http://chatroom.topzone.biz
 

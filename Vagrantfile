@@ -13,7 +13,8 @@ Vagrant.configure("2") do |config|
       node.vm.box = "trusty"
        node.vm.hostname = "#{host_name}"
       node.vm.network :private_network, ip: host_ip
-      node.vm.provision "shell", :path => File.join(File.dirname(__FILE__),"scripts/#{host_name}.sh"), :args => node.vm.hostname 
+      node.vm.synced_folder ".", "/tz-chatroom"
+      node.vm.provision "shell", :path => File.join(File.dirname(__FILE__),"scripts/#{host_name}.sh"), :args => node.vm.hostname
       
       node.vm.provider :virtualbox do |vb|
          vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
