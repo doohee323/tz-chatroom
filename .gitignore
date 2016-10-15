@@ -9,3 +9,4 @@ public/bower_components
 /.target
 /bin
 /bower_components
+.vagrant
