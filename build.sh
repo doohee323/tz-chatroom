@@ -3,11 +3,11 @@
 export PLAY=/usr/local/sbin/play
 
 # for build server
-export JENKINS_PROJECT=tz.chatroom
-export BUILD_BASE='/home/ubuntu/tz.chatroom'
+export JENKINS_PROJECT=tz-chatroom
+export BUILD_BASE='/home/ubuntu/tz-chatroom'
 
 # for staging server
-export RUN_BASE='/home/ubuntu/tz.chatroom'
+export RUN_BASE='/home/ubuntu/tz-chatroom'
 
 echo '1nd args : '$1
 echo '$PLAY : '$PLAY

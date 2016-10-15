@@ -8,49 +8,49 @@ http://54.166.26.82:9000
 	- angular.js
 	- Redis for storage and pub/sub
 	- reconnecting-websocket.min.js
-	- simple free memory check (/tz.chatroom/conf/application.conf tz.maxMemory=1000)
+	- simple free memory check (/tz-chatroom/conf/application.conf tz.maxMemory=1000)
 	
 ㅇ configuration
 	- play!
-		- redis: /tz.chatroom/conf/application.conf
+		- redis: /tz-chatroom/conf/application.conf
 		 
 			redis.url="~~~"
 		
 	- angular
-		- websocket: /tz.chatroom/web/scripts/app.js
+		- websocket: /tz-chatroom/web/scripts/app.js
 		 
 			var config = {
 				debug: true,		-> UI debug console
 	
 ㅇ install
-	git clone https://github.com/doohee323/tz.chatroom.git
-	cd tz.chatroom/web
+	git clone https://github.com/doohee323/tz-chatroom.git
+	cd tz-chatroom/web
 	npm install
 	bower install
 	grunt build
  
 ㅇ start for local env.
-	cd tz.chatroom
+	cd tz-chatroom
 	play clean compile stage
 	play start -Dhttp.port=9000
 	
 	cf. grunt
-	cd tz.chatroom/web
+	cd tz-chatroom/web
 	grunt serve
 
 ㅇ start for production 
-	cd tz.chatroom
+	cd tz-chatroom
 	play clean compile stage
-	cd tz.chatroom
+	cd tz-chatroom
 	play clean dist
-	tz.chatroom/dist> unzip tz_chatroom-1.0-SNAPSHOT.zip
-	tz.chatroom/dist> cd tz_chatroom-1.0-SNAPSHOT
+	tz-chatroom/dist> unzip tz_chatroom-1.0-SNAPSHOT.zip
+	tz-chatroom/dist> cd tz_chatroom-1.0-SNAPSHOT
 	chmod 777 start
 	./start -Xms512M -Xmx1024m &
 	
 # build.sh compile
 # ./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar &
-# ./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar -Dconfig.resource=prod.conf -Dlogger.file=/home/ubuntu/tz.chatroom/prod-logger.xml & 
+# ./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar -Dconfig.resource=prod.conf -Dlogger.file=/home/ubuntu/tz-chatroom/prod-logger.xml & 
 
 ㅇ debugging with runscope
 	https://www.runscope.com/stream/p146veqmxldc
@@ -59,7 +59,7 @@ http://54.166.26.82:9000
 	https://rpm.newrelic.com/accounts/597359/applications/5584593
 	
 ㅇ performance test with jmeter
-	/tz.chatroom/conf/tz.chatroom.jmx
+	/tz-chatroom/conf/tz-chatroom.jmx
 	
 	
 	
