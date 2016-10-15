@@ -75,6 +75,9 @@ cd $HOME_DIR
 wget https://downloads.typesafe.com/play/2.1.3/play-2.1.3.zip
 unzip play-2.1.3.zip
 sudo chown -Rf vagrant:vagrant play-2.1.3
+if [ "$SENV" = "aws" ]; then
+	sudo chown -Rf ubuntu:ubuntu play-2.1.3
+fi
 cd $PROJ_DIR
 bash build.sh compile
 
