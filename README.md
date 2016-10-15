@@ -2,7 +2,7 @@
 
 http://chatroom.topzone.biz
 
-## function
+## Features
 	- Websocket.io with play!
 	- angular.js
 	- Redis for storage and pub/sub
@@ -11,7 +11,7 @@ http://chatroom.topzone.biz
 
 install Tz-Chat app on vagrant
 
-## requirement in your pc
+## Requirement in your pc
 ```	
 	install vagrant
 	vagrant box add trusty https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box
@@ -21,13 +21,13 @@ install Tz-Chat app on vagrant
 	
 ```
 
-## run vagrant
+## Run vagrant
 ```
 	cd ~/tz-chatroom
 	vagrant destroy -f && vagrant up
 ```
 
-## configuration
+## Configuration
 	- play!
 		- redis: /tz-chatroom/conf/application.conf
 		 
@@ -39,8 +39,8 @@ install Tz-Chat app on vagrant
 			var config = {
 				debug: true,		-> UI debug console
 
-### build for local env.
-## install
+## Build for local env.
+### Install
 ```
 	git clone https://github.com/doohee323/tz-chatroom.git
 	cd tz-chatroom/web
@@ -48,7 +48,7 @@ install Tz-Chat app on vagrant
 	bower install
 	grunt build
 ```
-## start for local env.
+### Start for local env.
 ```
 	cd tz-chatroom
 	play clean compile stage
@@ -59,7 +59,7 @@ install Tz-Chat app on vagrant
 	grunt serve
 ```
 
-## start for production 
+### Start for production 
 ```
 	cd tz-chatroom
 	play clean compile stage
@@ -75,7 +75,7 @@ install Tz-Chat app on vagrant
 # ./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar -Dconfig.resource=prod.conf -Dlogger.file=/home/ubuntu/tz-chatroom/prod-logger.xml & 
 ```
 
-## etc
+## Etc
 ```
 	- debugging with runscope
 	https://www.runscope.com/stream/p146veqmxldc
