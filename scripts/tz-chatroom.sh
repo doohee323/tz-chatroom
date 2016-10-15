@@ -31,6 +31,7 @@ sudo sh -c "echo '127.0.0.1  chatroom.topzone.biz' >> /etc/hosts"
 
 sudo apt-get install openjdk-7-jdk curl -y
 sudo apt-get install npm -y
+sudo apt-get install nodejs-legacy
 sudo apt-get install git -y
 sudo apt-get install unzip
 sudo npm install bower -g
@@ -46,6 +47,7 @@ sudo rm -rf /etc/nginx/sites-available/tz-chatroom.conf
 sudo rm -rf /etc/nginx/sites-enabled/tz-chatroom.conf
 sudo cp -Rf $SRC_DIR/nginx/tz-chatroom.conf /etc/nginx/sites-available/tz-chatroom.conf
 sudo ln -s /etc/nginx/sites-available/tz-chatroom.conf /etc/nginx/sites-enabled/tz-chatroom.conf
+sudo service nginx restart
 
 if [ "$SENV" = "aws" ]; then
 	sudo sed -i "s/\/vagrant\/web_apps/\/home\/ubuntu\/tz-chatroom\/web_apps/g" /etc/nginx/sites-available/default
