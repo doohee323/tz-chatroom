@@ -3,10 +3,10 @@
 #export PLAY=/usr/local/bin/play
 
 # for build server
-export BUILD_BASE='/vagrant'
+export BUILD_BASE='/tz-chatroom'
 
 # for staging server
-export RUN_BASE='/vagrant'
+export RUN_BASE='/tz-chatroom'
 
 echo '1nd args : '$1
 echo '$RUN_BASE : '$RUN_BASE
