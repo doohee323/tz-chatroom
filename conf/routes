@@ -15,5 +15,5 @@ GET     /chatroom/:chatroom               controllers.Application.chatRoom(chatr
 GET     /chatroom/chat/:param  						controllers.Application.chat(param)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /         controllers.Assets.at(path = "/public", file = "index.html")
-GET     /*file    controllers.Assets.at(path = "/public", file)
+GET     /         controllers.Assets.at(path = "/web/app", file = "index.html")
+GET     /*file    controllers.Assets.at(path = "/web/app", file)

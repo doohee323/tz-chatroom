@@ -10,7 +10,7 @@ export PROJ_DIR=/tz-chatroom
 export NODE_ENV=development
 
 if [ "$SENV" = "aws" ]; then
-	USER=ubuntu
+	export USER=ubuntu
 	cd /
 	sudo git clone https://github.com/doohee323/tz-chatroom.git
 	sudo chown -Rf ubuntu:ubuntu /tz-chatroom
@@ -85,7 +85,10 @@ bash build.sh compile
 cd $PROJ_DIR/web
 npm install
 bower install
-grunt build
+if [ "$SENV" = "aws" ]; then
+	sudo chown -Rf ubuntu:ubuntu /home/ubuntu/tmp
+fi
+grunt build --force
 
 ### [open firewalls] ############################################################################################################
 ufw allow "Nginx Full"
