@@ -90,7 +90,7 @@ if [ "$SENV" = "aws" ]; then
 fi
 #grunt build --force
 cd $PROJ_DIR
-sudo ln -s web/app public
+ln -s web/app public
 
 ### [open firewalls] ############################################################################################################
 ufw allow "Nginx Full"

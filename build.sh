@@ -33,10 +33,10 @@ elif [ $1 == 'start' ]
 then
 	echo '3 : cd '$RUN_BASE
 	cd $RUN_BASE
-	# play start -Dhttp.port=9000 &
-	#./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar &
 	rm -rf /tz-chatroom/./dist/tz_chatroom-1.0-SNAPSHOT/RUNNING_PID 
-	./dist/tz_chatroom-1.0-SNAPSHOT/start -Dconfig.resource=application.conf -Dhttp.port=9000 &
+	play start -Dhttp.port=9000 &
+	#./start -Xms512M -Xmx1024m -javaagent:/home/ubuntu/newrelic/newrelic.jar &
+	#./dist/tz_chatroom-1.0-SNAPSHOT/start -Dconfig.resource=application.conf -Dhttp.port=9000 &
 else
 	echo 'else'
 fi
