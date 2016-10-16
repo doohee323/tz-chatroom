@@ -88,7 +88,9 @@ bower install
 if [ "$SENV" = "aws" ]; then
 	sudo chown -Rf ubuntu:ubuntu play-2.1.3
 fi
-grunt build --force
+#grunt build --force
+cd $PROJ_DIR
+sudo ln -s web/app public
 
 ### [open firewalls] ############################################################################################################
 ufw allow "Nginx Full"
