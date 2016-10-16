@@ -2,6 +2,8 @@
 
 http://chatroom.topzone.biz
 
+http://chatroom.topzone.biz:9000
+
 ## Features
 	- Websocket.io with play!
 	- angular.js
